@@ -1,0 +1,32 @@
+name: LaravelDTO
+type: laravel
+docroot: public
+php_version: "8.4"
+webserver_type: apache-fpm
+router_http_port: "80"
+router_https_port: "443"
+xdebug_enabled: false
+additional_hostnames: []
+additional_fqdns: []
+performance_mode: mutagen
+database:
+  type: mariadb
+  version: "10.11"
+use_dns_when_possible: true
+composer_version: "2"
+web_environment: []
+nodejs_version: "20"
+project_tld: app.local
+web_extra_exposed_ports:
+  - name: node-vite
+    container_port: 5173
+    http_port: 5172
+    https_port: 5173
+corepack_enable: true
+
+hooks:
+  post-start:
+    - exec: composer install
+      service: web
+upload_dirs:
+  - "storage/app"

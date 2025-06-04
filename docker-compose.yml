@@ -1,0 +1,44 @@
+version: '3.9'
+services:
+    apache:
+        image: fuzzy-palm-tree:latest
+        build: ./
+        expose:
+            - "80"
+            - "443"
+        volumes:
+            - storage_production:/var/www/html/storage
+        depends_on:
+            - mysql-laravel-dto-production
+        environment:
+            - DB_CONNECTION=mysql
+            - DB_HOST=mysql_production
+            - DB_PORT=3306
+            - DB_DATABASE=db
+            - DB_USERNAME=root
+            - DB_PASSWORD=rootpass
+            - PHP_UPLOAD_MAX_FILESIZE=10M
+            - PHP_POST_MAX_SIZE=10M
+        networks:
+            - dokploy-network
+
+    mysql-workflow-buddy-production:
+        container_name: mysql_laravel_dto_production
+        image: mysql:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: rootpass
+            MYSQL_DATABASE: db
+            MYSQL_USER: user
+            MYSQL_PASSWORD: pass
+        volumes:
+            - mysql_production_data:/var/lib/mysql
+        networks:
+            - dokploy-network
+
+networks:
+    dokploy-network:
+        external: true
+
+volumes:
+    storage_production:
+    mysql_production_data:

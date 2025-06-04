@@ -1,0 +1,5 @@
+CREATE DATABASE IF NOT EXISTS laravel_dto;
+
+GRANT ALL PRIVILEGES ON laravel_dto.* TO 'dto'@'%';
+
+FLUSH PRIVILEGES;
