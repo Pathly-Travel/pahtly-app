@@ -1046,10 +1046,9 @@ jobs:
           - [📋 Recent Changes](generated/recent-changes.md)
           EOF
 
-      - name: 📤 Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./docs-site
-
       - name: 🚀 Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4 
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs-site
+          force_orphan: true 
