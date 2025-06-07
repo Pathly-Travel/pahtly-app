@@ -1,18 +1,18 @@
 name: 📚 Documentation Automation
 
+# Triggers:
+# - Push to master/main branch (any files changed)
+# - Pull requests to master/main (for preview)
+# - Manual trigger via GitHub Actions UI
+# - Weekly scheduled run (Mondays at 6 AM UTC)
 on:
   push:
-    branches: [master]
-    paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'config/**'
-      - 'composer.json'
-      - 'package.json'
-      - 'phpstan.neon'
-      - 'eslint.config.js'
-      - '.prettierrc'
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
   workflow_dispatch: # Allow manual trigger
+  schedule:
+    - cron: '0 6 * * 1' # Weekly on Monday at 6 AM UTC
 
 jobs:
   update-docs:
