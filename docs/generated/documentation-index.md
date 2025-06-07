@@ -1,48 +1,48 @@
 # Complete Documentation Index (Auto-generated)
 
-**Generated:** 2025-06-07 12:17:59 UTC
+**Generated:** 2025-06-07 12:29:52 UTC
 
 ## 📚 Manual Documentation (Comprehensive Guides)
 
 ### [API Documentation](API.md)
 - **File:** `docs/API.md`
 - **Size:** `721 lines`
-- **Last Modified:** `2025-06-07 12:17:24`
+- **Last Modified:** `2025-06-07 12:29:13`
 
 ### [Architecture Documentation](ARCHITECTURE.md)
 - **File:** `docs/ARCHITECTURE.md`
 - **Size:** `508 lines`
-- **Last Modified:** `2025-06-07 12:17:24`
+- **Last Modified:** `2025-06-07 12:29:13`
 
 ### [Code Quality Guide](CODE_QUALITY.md)
 - **File:** `docs/CODE_QUALITY.md`
 - **Size:** `503 lines`
-- **Last Modified:** `2025-06-07 12:17:24`
+- **Last Modified:** `2025-06-07 12:29:13`
 
 ### [Deployment Guide](DEPLOYMENT.md)
 - **File:** `docs/DEPLOYMENT.md`
 - **Size:** `788 lines`
-- **Last Modified:** `2025-06-07 12:17:24`
+- **Last Modified:** `2025-06-07 12:29:13`
 
 ### [Local Development with DDEV](LOCAL_DEVELOPMENT.md)
 - **File:** `docs/LOCAL_DEVELOPMENT.md`
 - **Size:** `346 lines`
-- **Last Modified:** `2025-06-07 12:17:24`
+- **Last Modified:** `2025-06-07 12:29:13`
 
 ### [CI/CD Pipeline Setup Guide](PIPELINE_SETUP.md)
 - **File:** `docs/PIPELINE_SETUP.md`
 - **Size:** `506 lines`
-- **Last Modified:** `2025-06-07 12:17:24`
+- **Last Modified:** `2025-06-07 12:29:13`
 
 ### [Documentation Index](README.md)
 - **File:** `docs/README.md`
 - **Size:** `243 lines`
-- **Last Modified:** `2025-06-07 12:17:24`
+- **Last Modified:** `2025-06-07 12:29:13`
 
 ### [Testing Guide](TESTING.md)
 - **File:** `docs/TESTING.md`
 - **Size:** `672 lines`
-- **Last Modified:** `2025-06-07 12:17:24`
+- **Last Modified:** `2025-06-07 12:29:13`
 
 ## 🤖 Auto-Generated Documentation (Live Code Analysis)
 
@@ -67,5 +67,5 @@
 ## 📊 Documentation Statistics
 - **Total Manual Docs:** `8 files`
 - **Total Auto-Generated:** `16 files`
-- **Total Lines:** `5485 lines`
-- **Last Updated:** `2025-06-07 12:17:59 UTC`
+- **Total Lines:** `5484 lines`
+- **Last Updated:** `2025-06-07 12:29:52 UTC`

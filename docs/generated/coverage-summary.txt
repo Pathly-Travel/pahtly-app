@@ -2,10 +2,10 @@
    WARN  Incorrect filter configuration, code coverage will not be processed
 
    PASS  Tests\Unit\ExampleTest
-  ✓ that true is true
+  ✓ that true is true                                                    0.01s  
 
    FAIL  Tests\Feature\Auth\AuthenticationTest
-  ⨯ login screen can be rendered                                         0.17s  
+  ⨯ login screen can be rendered                                         0.19s  
   ⨯ users can authenticate using the login screen                        0.04s  
   ⨯ users can not authenticate with invalid password                     0.02s  
   ⨯ users can logout                                                     0.02s  
@@ -31,7 +31,7 @@
   ⨯ new users can register                                               0.02s  
 
    FAIL  Tests\Feature\DashboardTest
-  ⨯ guests are redirected to the login page                              0.02s  
+  ⨯ guests are redirected to the login page                              0.03s  
   ⨯ authenticated users can visit the dashboard                          0.02s  
 
    WARN  Tests\Feature\Domain\User\UpdateUserProfileActionTest
@@ -46,7 +46,7 @@
   ⨯ correct password must be provided to update password                 0.02s  
 
    FAIL  Tests\Feature\Settings\ProfileUpdateTest
-  ⨯ profile page is displayed                                            0.02s  
+  ⨯ profile page is displayed                                            0.03s  
   ⨯ profile information can be updated                                   0.02s  
   ⨯ email verification status is unchanged when the email address is un… 0.02s  
   ⨯ user can delete their account                                        0.02s  
@@ -521,5 +521,5 @@
 
 
   Tests:    26 failed, 2 warnings, 1 passed (5 assertions)
-  Duration: 0.98s
+  Duration: 1.03s
 

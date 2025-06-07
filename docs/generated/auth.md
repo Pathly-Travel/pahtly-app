@@ -1,6 +1,6 @@
 # Authentication Documentation (Auto-generated)
 
-**Generated:** 2025-06-07 12:17:57 UTC
+**Generated:** 2025-06-07 12:29:50 UTC
 
 ## Authentication Controllers
 

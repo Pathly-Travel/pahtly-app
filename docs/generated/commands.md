@@ -1,6 +1,6 @@
 # Command Reference (Auto-generated)
 
-**Last Updated:** 2025-06-07 12:17:55 UTC
+**Last Updated:** 2025-06-07 12:29:48 UTC
 
 ## Laravel Artisan Commands
 ```bash
