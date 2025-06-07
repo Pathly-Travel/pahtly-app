@@ -8,9 +8,9 @@ on:
     branches: [master]
 
 jobs:
-  # Job 1: Testen van de applicatie
-  test:
-    name: 🧪 Run Tests
+  # Combined CI job: Tests, Code Quality & Security
+  ci-tests:
+    name: 🚀 CI Tests & Quality Checks
     runs-on: ubuntu-latest
     
     env:
@@ -88,12 +88,9 @@ jobs:
       - name: 🌱 Seed database
         run: php artisan db:seed --force
 
+      # Tests Section
       - name: 🧪 Run PHP tests
         run: php artisan test 
-
-      # - name: 🔬 Run PHPStan (static analysis)
-      #   run: vendor/bin/phpstan analyse --memory-limit=2G
-      #   continue-on-error: true
 
       - name: 📊 Upload coverage reports
         uses: codecov/codecov-action@v3
@@ -102,25 +99,9 @@ jobs:
           file: ./coverage.xml
           flags: unittests
           name: codecov-umbrella
+        continue-on-error: true
 
-  # Job 2: Code quality checks
-  code-quality:
-    name: 🔍 Code Quality
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🐘 Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
-
-      - name: 📦 Install Composer dependencies
-        run: composer install --prefer-dist --no-interaction --no-progress
-
+      # Code Quality Section
       - name: 🎨 Run Laravel Pint (code formatting)
         run: vendor/bin/pint --test
 
@@ -128,34 +109,18 @@ jobs:
         run: vendor/bin/phpstan analyse
         continue-on-error: true
 
-  # Job 3: Security checks
-  security:
-    name: 🔒 Security Scan
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🐘 Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-
-      - name: 📦 Install Composer dependencies
-        run: composer install --prefer-dist --no-interaction --no-progress
-
+      # Security Section
       - name: 🛡️ Run security audit
         run: composer audit
 
       - name: 🔍 Check for known vulnerabilities
         uses: symfonycorp/security-checker-action@v5
 
-  # Job 4: Build en deployment (alleen bij push naar master)
+  # Deployment job (alleen bij push naar master)
   deploy:
     name: 🚀 Deploy to Production
     runs-on: ubuntu-latest
-    needs: [test, code-quality, security]
+    needs: [ci-tests]
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     
     environment:
@@ -289,11 +254,11 @@ jobs:
       #   env:
       #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-  # # Job 5: Notification (altijd uitvoeren)
+  # # Job 3: Notification (altijd uitvoeren)
   # notify:
   #   name: 📢 Notifications
   #   runs-on: ubuntu-latest
-  #   needs: [test, code-quality, security]
+  #   needs: [ci-tests]
   #   if: always()
     
   #   steps:
