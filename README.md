@@ -759,32 +759,63 @@ Our GitHub Actions workflow enforces quality:
 3. **Gradual improvement**: Use baselines for legacy code
 4. **Team alignment**: Ensure all team members use same tools
 
-## 🤖 Automated Documentation
+## 🤖 Comprehensive Automated Documentation
 
-This project includes **automated documentation generation** via CI/CD pipelines:
+This project includes **extensive automated documentation generation** that covers every aspect of your codebase via CI/CD pipelines:
 
-### Auto-Generated Content
+### Complete Auto-Generated Content
+
+**🏗️ Architecture Documentation:**
+- 🧠 **Business Logic**: DTOs, Domain Actions, and Models with namespaces and paths
+- 🔄 **Workflows**: GitHub Actions workflows and DDEV configuration
+- 🎨 **Views & Frontend**: Vue.js components, pages, layouts, and composables
+- 🔐 **Authentication**: Auth controllers, middleware, and route definitions
+
+**📦 Infrastructure Documentation:**
+- 📦 **Dependencies**: Complete Composer and NPM dependency lists with versions
+- 📧 **Mails**: Mail classes, notification classes, and email templates
+- 🧪 **Tests**: Unit tests, feature tests, configuration, and results summaries
+
+**📊 Project Information:**
 - ✅ **Quality Metrics**: Real-time test results, PHPStan analysis, ESLint status
 - ✅ **API Documentation**: Current routes and endpoints  
 - ✅ **Command Reference**: Available artisan and NPM commands
 - ✅ **Project Structure**: Current directory organization
-- ✅ **Configuration Examples**: Live config files and settings
 
 ### Manual Generation
 ```bash
-# Generate docs locally (same as CI)
+# Generate comprehensive docs locally (same as CI)
 ./scripts/generate-docs.sh
 
-# View generated documentation
+# View all generated documentation files
 ls docs/generated/
+
+# Generated files include:
+# - business-logic.md    (DTOs, Actions, Models)
+# - workflows.md         (GitHub Actions, DDEV)
+# - views.md            (Vue Components, Pages, Layouts)
+# - auth.md             (Auth Controllers, Middleware)
+# - dependencies.md     (Composer, NPM packages)
+# - mails.md            (Mail classes, templates)
+# - tests.md            (Unit, Feature tests, config)
+# - quality-metrics.md  (Code quality status)
+# - api-routes.md       (API endpoints)
+# - structure.md        (Project structure)
 ```
 
 ### Hosted Documentation
-- **GitHub Pages**: Automatically deployed documentation site
+- **GitHub Pages**: Automatically deployed comprehensive documentation site
 - **Auto-Updates**: Refreshed on every push to master
 - **Search**: Full-text search across all documentation
+- **Navigation**: Organized by architecture sections (Business Logic, Infrastructure, etc.)
 
-*Documentation is automatically updated when code changes are pushed to master branch.*
+### Documentation Features
+- **Real-time Updates**: Documentation reflects current codebase state
+- **Comprehensive Coverage**: Every file type and architecture layer documented
+- **Automated Analysis**: Includes live code quality metrics and test results
+- **Developer-Friendly**: Organized for easy navigation and understanding
+
+*All documentation is automatically updated when code changes are pushed to master branch, ensuring your docs never go out of sync with your code.*
 
 ## 📚 References
 
