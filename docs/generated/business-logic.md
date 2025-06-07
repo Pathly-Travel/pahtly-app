@@ -1,6 +1,6 @@
 # Business Capabilities & Features (Auto-generated)
 
-**Generated:** 2025-06-07 12:12:45 UTC
+**Generated:** 2025-06-07 12:17:57 UTC
 
 *This document outlines the core business capabilities of the application in non-technical terms for product stakeholders.*
 
@@ -40,19 +40,19 @@
 
 ## 📊 Application Features Summary
 
-### ⚙️ Settings Domain
-- **Primary Function:** User preferences and configuration management
-- **Business Operations:**        1 capabilities
-- **Data Structures:**        2 validation rules
+### 👤 User Management Domain
+- **Primary Function:** User profile and account management
+- **Business Operations:** 2 capabilities
+- **Data Structures:** 1 validation rules
+- **Data Storage:** 1 entity types
 
 ### 🔐 Authentication Domain
 - **Primary Function:** User account security and access control
-- **Business Operations:**        2 capabilities
-- **Data Structures:**        2 validation rules
+- **Business Operations:** 2 capabilities
+- **Data Structures:** 2 validation rules
 
-### 👤 User Management Domain
-- **Primary Function:** User profile and account management
-- **Business Operations:**        2 capabilities
-- **Data Structures:**        1 validation rules
-- **Data Storage:**        1 entity types
+### ⚙️ Settings Domain
+- **Primary Function:** User preferences and configuration management
+- **Business Operations:** 1 capabilities
+- **Data Structures:** 2 validation rules
 

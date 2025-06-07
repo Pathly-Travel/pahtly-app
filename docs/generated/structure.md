@@ -1,6 +1,6 @@
 # Project Structure (Auto-generated)
 
-**Generated:** 2025-06-07 12:12:55 UTC
+**Generated:** 2025-06-07 12:17:54 UTC
 
 ## Domain Driven Design Architecture
 
@@ -12,48 +12,48 @@ src/
 │   ├── Foundation/
 │   │   └── Application.php       # Custom Laravel Application
 │   ├── Portal/                   # HTTP Controllers grouped by domain
+│   │   ├── Auth/
+│   │   │   └── AuthenticatedSessionController.php
+│   │   │   └── ConfirmablePasswordController.php
+│   │   │   └── VerifyEmailController.php
 │   │   ├── Settings/
 │   │   │   └── ProfileController.php
 │   │   │   └── PasswordController.php
-│   │   ├── Auth/
-│   │   │   └── NewPasswordController.php
-│   │   │   └── EmailVerificationPromptController.php
-│   │   │   └── VerifyEmailController.php
 │   ├── Middleware/               # HTTP Middleware
 │   │   └── HandleInertiaRequests.php
 │   │   └── HandleAppearance.php
 │   └── Providers/
-│       └── AppServiceProvider.php
 │       └── DomainServiceProvider.php
+│       └── AppServiceProvider.php
 ├── Domain/                       # Domain Layer (Business Logic)
+│   ├── User/                     # User Domain
+│   │   ├── Actions/
+│   │   │   ├── DeleteUserAction.php
+│   │   │   ├── UpdateUserProfileAction.php
+│   │   ├── Data/
+│   │   │   ├── UserData.php
+│   │   └── Models/
+│   │       └── User.php
+│   ├── Auth/                     # Auth Domain
+│   │   ├── Actions/
+│   │   │   ├── LoginAction.php
+│   │   │   ├── RegisterAction.php
+│   │   ├── Data/
+│   │   │   ├── LoginData.php
+│   │   │   ├── RegisterData.php
 │   ├── Settings/                     # Settings Domain
 │   │   ├── Actions/
 │   │   │   ├── UpdatePasswordAction.php
 │   │   ├── Data/
 │   │   │   ├── PasswordUpdateData.php
 │   │   │   ├── ProfileUpdateData.php
-│   ├── Auth/                     # Auth Domain
-│   │   ├── Actions/
-│   │   │   ├── LoginAction.php
-│   │   │   ├── RegisterAction.php
-│   │   ├── Data/
-│   │   │   ├── RegisterData.php
-│   │   │   ├── LoginData.php
-│   ├── User/                     # User Domain
-│   │   ├── Actions/
-│   │   │   ├── UpdateUserProfileAction.php
-│   │   │   ├── DeleteUserAction.php
-│   │   ├── Data/
-│   │   │   ├── UserData.php
-│   │   └── Models/
-│   │       └── User.php
 └── Support/                      # Support Layer (Shared Infrastructure)
-    ├── Traits/
-    │   └── HasDomainData.php
     ├── Controllers/
     │   └── Controller.php
     ├── Helpers/
     │   └── DomainHelper.php
+    ├── Traits/
+    │   └── HasDomainData.php
 ```
 
 ## Layer Responsibilities
@@ -77,11 +77,11 @@ src/
 
 ## File Count Summary
 
-- **DTOs**:        5 files
-- **Actions**:        5 files  
-- **Models**:        1 files
-- **Controllers**:       10 files
-- **Tests**:       13 files
+- **DTOs**: `5 files`
+- **Actions**: `5 files`
+- **Models**: `1 files`
+- **Controllers**: `10 files`
+- **Tests**: `13 files`
 
 ## Frontend Structure
 
@@ -89,26 +89,26 @@ src/
 resources/
 ├── js/
 │   ├── types/
-│   │   └── globals.d.ts
 │   │   └── ziggy.d.ts
+│   │   └── globals.d.ts
 │   │   └── index.d.ts
+│   ├── lib/
+│   │   └── utils.ts
+│   ├── layouts/
+│   │   └── AppLayout.vue
+│   │   └── AppSidebarLayout.vue
+│   │   └── AppHeaderLayout.vue
 │   ├── composables/
 │   │   └── useInitials.ts
 │   │   └── useAppearance.ts
 │   ├── components/
+│   │   └── PlaceholderPattern.vue
 │   │   └── AppSidebarHeader.vue
-│   │   └── SidebarMenuSubButton.vue
-│   │   └── SidebarContent.vue
-│   ├── layouts/
-│   │   └── Layout.vue
-│   │   └── AuthLayout.vue
-│   │   └── AppSidebarLayout.vue
-│   ├── lib/
-│   │   └── utils.ts
+│   │   └── UserMenuContent.vue
 │   ├── pages/
-│   │   └── Profile.vue
-│   │   └── Password.vue
+│   │   └── Welcome.vue
 │   │   └── Appearance.vue
+│   │   └── Password.vue
 └── views/
     └── app.blade.php             # Main application template
 ```
@@ -116,8 +116,7 @@ resources/
 ## Key Architectural Benefits
 
 ✅ **Separation of Concerns**: Clear boundaries between layers
-✅ **Testability**: Each layer can be tested independently  
+✅ **Testability**: Each layer can be tested independently
 ✅ **Maintainability**: Business logic is centralized in domain layer
 ✅ **Type Safety**: DTOs provide compile-time type checking
 ✅ **Scalability**: Easy to add new domains and features
-

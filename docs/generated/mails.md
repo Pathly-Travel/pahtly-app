@@ -1,12 +1,10 @@
 # Mails Documentation (Auto-generated)
 
-**Generated:** 2025-06-07 12:12:48 UTC
+**Generated:** 2025-06-07 12:17:57 UTC
 
 ## Mail Classes
 
-
 ## Mail Templates
-
 
 ## Mail Configuration
 - **Default Mailer:** `log`
