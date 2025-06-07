@@ -30,9 +30,15 @@ class ProfileController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
+        $user = auth()->user();
+        
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
         $profileData = ProfileUpdateData::from($request->all());
 
-        app(UpdateUserProfileAction::class)(auth()->user(), $profileData);
+        app(UpdateUserProfileAction::class)($user, $profileData);
 
         return to_route('profile.edit');
     }
@@ -42,11 +48,17 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $user = $request->user();
+        
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
         $request->validate([
             'password' => ['required', 'current_password'],
         ]);
 
-        app(DeleteUserAction::class)($request->user());
+        app(DeleteUserAction::class)($user);
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

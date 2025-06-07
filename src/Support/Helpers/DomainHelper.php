@@ -15,7 +15,7 @@ class DomainHelper
     /**
      * Execute a domain action with error handling
      */
-    public static function executeAction(string $actionClass, ...$parameters): mixed
+    public static function executeAction(string $actionClass, mixed ...$parameters): mixed
     {
         $action = self::resolveAction($actionClass);
 

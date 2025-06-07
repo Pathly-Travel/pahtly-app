@@ -25,9 +25,15 @@ class PasswordController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
+        $user = auth()->user();
+        
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
         $passwordData = PasswordUpdateData::from($request->all());
 
-        app(UpdatePasswordAction::class)(auth()->user(), $passwordData);
+        app(UpdatePasswordAction::class)($user, $passwordData);
 
         return back();
     }

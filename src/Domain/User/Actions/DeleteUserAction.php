@@ -11,8 +11,6 @@ class DeleteUserAction
     {
         Auth::logout();
 
-        $deleted = $user->delete();
-
-        return $deleted;
+        return $user->delete() ?? false;
     }
 }
