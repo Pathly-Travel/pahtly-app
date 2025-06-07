@@ -1,408 +1,251 @@
-# Local Development Guide
+# Local Development with DDEV
 
-This guide provides comprehensive instructions for setting up and running the Laravel DTO application locally using DDEV (Docker Development Environment).
+Complete guide for setting up and running the Laravel DTO application locally using DDEV.
 
-## 🐳 DDEV Overview
+## 🐳 What is DDEV?
 
-DDEV is a Docker-based local development environment that provides:
-- ✅ **Consistent Environment**: Same PHP, database, and web server versions for all developers
-- ✅ **Easy Setup**: One-command project initialization
-- ✅ **Multiple Services**: Web server, database, mailhog, and more
-- ✅ **Laravel Optimized**: Pre-configured for Laravel development
-- ✅ **Cross-Platform**: Works on macOS, Windows, and Linux
+DDEV provides a consistent Docker-based development environment with:
+- Same PHP, database versions for all developers
+- Easy one-command setup
+- Pre-configured for Laravel development
+- Cross-platform support (macOS, Windows, Linux)
 
 ## 📋 Prerequisites
 
-### Required Software
+### Install Docker Runtime
 
-1. **Docker Desktop**
-   - **macOS**: [Download Docker Desktop](https://www.docker.com/products/docker-desktop)
-   - **Windows**: [Download Docker Desktop](https://www.docker.com/products/docker-desktop)
-   - **Linux**: [Install Docker Engine](https://docs.docker.com/engine/install/)
+You can use either Docker Desktop or OrbStack (recommended for macOS):
 
-2. **DDEV**
-   - We'll install this in the next section
+#### Option 1: Docker Desktop (Cross-platform)
+- **macOS/Windows**: [Download Docker Desktop](https://www.docker.com/products/docker-desktop)
+- **Linux**: [Install Docker Engine](https://docs.docker.com/engine/install/)
 
-### System Requirements
-
-- **RAM**: Minimum 4GB, recommended 8GB+
-- **Storage**: At least 2GB free space for Docker images
-- **OS**: macOS 10.14+, Windows 10+, or modern Linux distribution
-
-## 🚀 DDEV Installation
-
-### macOS Installation
+#### Option 2: OrbStack (macOS recommended)
+- **macOS only**: [Download OrbStack](https://orbstack.dev/)
+- **Benefits**: Faster startup, lower resource usage, better performance
+- **Installation**: Download `.dmg` and drag to Applications
 
 ```bash
-# Install using Homebrew (recommended)
+# Install via Homebrew
+brew install orbstack
+
+# Or download directly from https://orbstack.dev/
+```
+
+**Why OrbStack?** (macOS users)
+- ⚡ **Faster**: 2-3x faster container startup
+- 🔋 **Efficient**: Uses 50% less CPU and memory
+- 🚀 **Performance**: Better file system performance
+- 🔧 **Compatible**: Drop-in replacement for Docker Desktop
+
+#### Comparison: Docker Desktop vs OrbStack
+
+| Feature | Docker Desktop | OrbStack |
+|---------|----------------|----------|
+| **Platforms** | macOS, Windows, Linux | macOS only |
+| **Resource Usage** | Higher CPU/Memory | 50% less resources |
+| **Startup Time** | 30-60 seconds | 5-10 seconds |
+| **File Sync** | Can be slow | Optimized |
+| **Apple Silicon** | Good support | Native optimization |
+| **Price** | Free for personal use | Free |
+| **DDEV Compatibility** | ✅ Full support | ✅ Full support |
+
+**Recommendation**: Use OrbStack on macOS for better performance, Docker Desktop for other platforms.
+
+### Install DDEV
+
+**macOS:**
+```bash
 brew install ddev/ddev/ddev
-
-# Alternative: Install using curl
-curl -fsSL https://raw.githubusercontent.com/ddev/ddev/master/scripts/install_ddev.sh | bash
 ```
 
-### Windows Installation
-
+**Windows:**
 ```powershell
-# Install using Chocolatey (recommended)
 choco install ddev
-
-# Alternative: Install using Scoop
-scoop install ddev
 ```
 
-### Linux Installation
-
+**Linux:**
 ```bash
-# Install using the install script
 curl -fsSL https://raw.githubusercontent.com/ddev/ddev/master/scripts/install_ddev.sh | bash
-
-# Alternative: Download binary manually
-# Visit: https://github.com/ddev/ddev/releases
 ```
 
-### Verify Installation
+## 🚀 Quick Start
 
+### 1. Setup Project
 ```bash
-# Check DDEV version
-ddev version
-
-# Expected output:
-# DDEV version v1.22.0
-```
-
-## 🛠️ Project Setup
-
-### 1. Clone the Repository
-
-```bash
-# Clone the project
+# Clone and enter project
 git clone <repository-url>
 cd LaravelDTO
 
-# Or if you already have the project
-cd LaravelDTO
-```
-
-### 2. Initialize DDEV
-
-```bash
-# Initialize DDEV for Laravel
+# Initialize DDEV
 ddev config
 
-# DDEV will auto-detect Laravel and configure:
-# - Project name: laraveldto (based on directory name)
-# - Project type: laravel
-# - PHP version: 8.2
-# - Web server: nginx
-# - Database: mysql:8.0
-```
-
-### 3. Start DDEV Environment
-
-```bash
-# Start all services
+# Start services
 ddev start
-
-# Expected output:
-# Starting laraveldto...
-# Successfully started laraveldto
-# Project can be reached at https://laraveldto.ddev.site
 ```
 
-### 4. Install Dependencies
-
+### 2. Install Dependencies
 ```bash
-# Install PHP dependencies
+# PHP dependencies
 ddev composer install
 
-# Install Node.js dependencies  
+# Node.js dependencies
 ddev npm install
 
-# Generate application key
+# Generate app key
 ddev artisan key:generate
 ```
 
-### 5. Database Setup
-
+### 3. Database Setup
 ```bash
-# Run database migrations
-ddev artisan migrate
-
-# Seed the database (optional)
-ddev artisan db:seed
-
-# Or run migrations with seeding in one command
+# Run migrations and seed
 ddev artisan migrate:fresh --seed
 ```
 
-### 6. Build Assets
-
+### 4. Build Assets
 ```bash
-# Build frontend assets for development
+# Development build
 ddev npm run dev
 
-# Or build and watch for changes
+# Or watch for changes
 ddev npm run watch
 ```
 
-## 🌐 Accessing Your Application
+### 5. Access Application
+- **Main Site**: https://laraveldto.ddev.site
+- **MailHog**: https://laraveldto.ddev.site:8026
+- **Database**: localhost:3306 (from host)
 
-### Web Application
-- **Main URL**: https://laraveldto.ddev.site
-- **HTTP URL**: http://laraveldto.ddev.site
+## ⚡ DDEV Shortcuts
 
-### Development Services
-- **MailHog** (Email testing): https://laraveldto.ddev.site:8026
-- **Database**: Accessible on localhost:3306 (from host)
-- **PHPMyAdmin**: https://laraveldto.ddev.site:8037
-
-### Database Connection
-
-From your host machine (for database clients):
-```
-Host: 127.0.0.1
-Port: 3306 (or check with `ddev describe`)
-Database: db
-Username: db  
-Password: db
-```
-
-## ⚡ DDEV Shortcuts & Commands
-
-### Essential DDEV Commands
-
+### Project Management
 ```bash
-# Project Management
-ddev start              # Start the project
-ddev stop               # Stop the project  
-ddev restart            # Restart all services
+ddev start              # Start project
+ddev stop               # Stop project
+ddev restart            # Restart services
+ddev describe           # Show URLs and info
 ddev poweroff           # Stop all DDEV projects
-
-# Project Information
-ddev describe           # Show project details and URLs
-ddev list               # List all DDEV projects
-ddev logs               # Show container logs
-ddev logs -f            # Follow logs in real-time
 ```
 
 ### Laravel Artisan Shortcuts
-
-Instead of typing `ddev exec php artisan ...`, use these shortcuts:
-
 ```bash
-# Basic Artisan Commands
-ddev artisan            # Run artisan (shows available commands)
-ddev artisan --version  # Check Laravel version
+# Database
+ddev artisan migrate                   # Run migrations
+ddev artisan migrate:fresh --seed     # Fresh DB with data
+ddev artisan db:seed                  # Run seeders
 
-# Database Commands
-ddev artisan migrate                    # Run migrations
-ddev artisan migrate:fresh             # Drop all tables and re-run migrations
-ddev artisan migrate:fresh --seed      # Fresh migrations + seeding
-ddev artisan migrate:rollback          # Rollback last migration
-ddev artisan migrate:status            # Check migration status
+# Cache Management
+ddev artisan cache:clear              # Clear app cache
+ddev artisan config:clear             # Clear config cache
+ddev artisan route:clear              # Clear route cache
+ddev artisan optimize:clear           # Clear all caches
 
-# Seeding Commands
-ddev artisan db:seed                   # Run database seeders
-ddev artisan db:seed --class=UserSeeder # Run specific seeder
+# Development
+ddev artisan tinker                   # Laravel REPL
+ddev artisan route:list               # Show all routes
+ddev artisan queue:work               # Start queue worker
 
-# Cache Commands
-ddev artisan cache:clear               # Clear application cache
-ddev artisan config:clear              # Clear configuration cache
-ddev artisan route:clear               # Clear route cache
-ddev artisan view:clear                # Clear compiled views
-ddev artisan optimize:clear            # Clear all Laravel caches
+# Testing
+ddev artisan test                     # Run all tests
+ddev artisan test --filter=UserTest   # Run specific test
 
-# Queue Commands
-ddev artisan queue:work                # Start queue worker
-ddev artisan queue:listen              # Listen for queue jobs
-ddev artisan queue:restart             # Restart queue workers
-
-# # Make Commands
-# ddev artisan make:controller UserController    # Create controller
-# ddev artisan make:model User                   # Create model
-# ddev artisan make:migration create_users_table # Create migration
-# ddev artisan make:seeder UserSeeder           # Create seeder
-# ddev artisan make:request UserRequest         # Create form request
-
-# Testing Commands
-ddev artisan test                      # Run all tests
-ddev artisan test --filter=UserTest    # Run specific test
-ddev artisan test --coverage          # Run tests with coverage
-
-# Development Commands  
-# ddev artisan serve                     # Start development server (not needed with DDEV)
-ddev artisan tinker                    # Laravel REPL
-ddev artisan route:list                # Show all routes
-ddev artisan schedule:run              # Run scheduled tasks
+# Code Generation
+ddev artisan make:controller UserController
+ddev artisan make:model User
+ddev artisan make:migration create_users_table
 ```
 
-### Composer Shortcuts
-
+### Composer Commands
 ```bash
-# Composer Commands
-ddev composer install                  # Install dependencies
-ddev composer update                   # Update dependencies
-ddev composer require spatie/laravel-data # Install package
-ddev composer require --dev pest       # Install dev dependency
-ddev composer dump-autoload            # Regenerate autoload files
-
-# Common Composer Tasks
-ddev composer install --optimize-autoloader --no-dev  # Production install
-ddev composer show                     # List installed packages
-ddev composer outdated                 # Check for outdated packages
+ddev composer install                 # Install dependencies
+ddev composer require package-name    # Add package
+ddev composer update                  # Update packages
+ddev composer dump-autoload           # Regenerate autoload
 ```
 
-### NPM/Node.js Shortcuts
-
+### NPM Commands
 ```bash
-# Node.js Commands
-ddev npm install                       # Install Node dependencies
-ddev npm run dev                       # Build assets for development
-ddev npm run build                     # Build assets for production  
-ddev npm run watch                     # Watch and rebuild assets
-ddev npm run lint                      # Run ESLint
-ddev npm run format                    # Format code with Prettier
-
-# Package Management
-ddev npm install vue@next              # Install npm package
-ddev npm install --save-dev @types/node # Install dev dependency
-ddev npm uninstall lodash              # Remove package
-ddev npm update                        # Update all packages
+ddev npm install                      # Install Node dependencies
+ddev npm run dev                      # Build for development
+ddev npm run build                    # Build for production
+ddev npm run watch                    # Watch and rebuild
+ddev npm run lint                     # Run ESLint
+ddev npm run format                   # Format with Prettier
 ```
 
-## 🔧 Custom DDEV Configuration
+## 🔧 Custom DDEV Commands
 
-### Extending DDEV Configuration
+Create custom shortcuts in `.ddev/commands/web/`:
 
-Create custom commands in `.ddev/commands/web/`:
-
-#### Laravel Fresh Command
+### Fresh Setup Command
 ```bash
 # .ddev/commands/web/fresh
 #!/bin/bash
-## Description: Fresh Laravel installation (migrate + seed)
+## Description: Fresh Laravel installation
 ## Usage: fresh
-## Example: "ddev fresh"
 
 php artisan migrate:fresh --seed
 npm run build
-echo "✅ Fresh Laravel installation complete!"
+echo "✅ Fresh installation complete!"
 ```
 
-#### Quality Check Command
+### Quality Check Command
 ```bash
 # .ddev/commands/web/quality
 #!/bin/bash
 ## Description: Run all quality checks
-## Usage: quality  
-## Example: "ddev quality"
+## Usage: quality
 
-echo "🧪 Running tests..."
 php artisan test
-
-echo "🔍 Running PHPStan..."
 ./vendor/bin/phpstan analyse
-
-echo "🎨 Checking formatting..."
-npm run format:check
-
-echo "🔍 Running ESLint..."
 npm run lint
-
-echo "✅ All quality checks passed!"
+npm run format:check
+echo "✅ Quality checks passed!"
 ```
 
-#### Setup Command
+### Setup Command
 ```bash
 # .ddev/commands/web/setup
 #!/bin/bash
 ## Description: Complete project setup
 ## Usage: setup
-## Example: "ddev setup"
 
-echo "🔧 Setting up Laravel DTO project..."
-
-# Install dependencies
 composer install
 npm install
-
-# Setup environment
 cp .env.example .env
 php artisan key:generate
-
-# Database setup
 php artisan migrate:fresh --seed
-
-# Build assets
 npm run build
-
-echo "✅ Project setup complete!"
 echo "🌐 Visit: https://laraveldto.ddev.site"
 ```
 
-Make commands executable:
+Make executable:
 ```bash
 chmod +x .ddev/commands/web/*
 ```
 
-### Environment Configuration
-
-Customize `.ddev/config.yaml`:
-
-```yaml
-name: laraveldto
-type: laravel
-docroot: public
-php_version: "8.2"
-webserver_type: nginx-fpm
-database:
-  type: mysql
-  version: "8.0"
-
-# Additional services
-use_dns_when_possible: true
-composer_version: "2"
-nodejs_version: "20"
-
-# Custom PHP configuration
-php_ini:
-  max_execution_time: 300
-  memory_limit: 512M
-  upload_max_filesize: 100M
-
-# Additional hostnames
-additional_hostnames:
-  - api.laraveldto.ddev.site
-
-# Custom environment variables
-web_environment:
-  - LARAVEL_SAIL=0
-  - DB_CONNECTION=mysql
-  - DB_HOST=db
-  - DB_PORT=3306
-  - DB_DATABASE=db
-  - DB_USERNAME=db
-  - DB_PASSWORD=db
-```
-
 ## 🐛 Troubleshooting
 
-### Common Issues & Solutions
+### Common Issues
 
-#### 1. DDEV Won't Start
+**DDEV won't start:**
 ```bash
 # Check Docker is running
 docker --version
 
-# Reset DDEV
-ddev poweroff
-ddev start
+# Check Docker/OrbStack status
+docker info
+
+# Restart DDEV
+ddev poweroff && ddev start
+
+# If using OrbStack, restart it
+# OrbStack menu → Restart
 ```
 
-#### 2. Port Conflicts
+**Port conflicts:**
 ```bash
-# Check what's using port 80/443
+# Check conflicts
 ddev debug port-conflicts
 
 # Stop conflicting services
@@ -410,115 +253,95 @@ sudo systemctl stop apache2  # Linux
 sudo brew services stop nginx # macOS
 ```
 
-#### 3. Permission Issues
+**Database connection issues:**
 ```bash
-# Fix file permissions (Linux/macOS)
-sudo chown -R $USER:$USER .
-
-# For Windows, run Docker Desktop as Administrator
-```
-
-#### 4. Database Connection Failed
-```bash
-# Check database status
+# Check status
 ddev describe
 
-# Restart database
+# Restart
 ddev restart
 ```
 
-#### 5. Assets Not Building
+**Permission issues (Linux/macOS):**
 ```bash
-# Clear npm cache
-ddev npm cache clean --force
-
-# Remove node_modules and reinstall
-ddev exec rm -rf node_modules
-ddev npm install
+sudo chown -R $USER:$USER .
 ```
 
-### Getting Help
+## 💡 Development Tips
 
+### Daily Workflow
 ```bash
-# DDEV help
-ddev help
-ddev help start
-
-# Debug information
-ddev debug test
-ddev debug capabilities
-
-# Community support
-# - GitHub: https://github.com/ddev/ddev
-# - Discord: https://discord.gg/5wjP76mBJD
-# - Documentation: https://ddev.readthedocs.io/
-```
-
-## 📊 Performance Tips
-
-### Optimization Settings
-
-1. **Increase Docker Resources**:
-   - Docker Desktop → Settings → Resources
-   - RAM: 4GB+ recommended
-   - CPU: 2+ cores
-
-2. **Enable Mutagen** (macOS performance):
-   ```bash
-   # Install mutagen
-   brew install mutagen-io/mutagen/mutagen
-   
-   # Enable in DDEV
-   ddev config --mutagen-enabled
-   ddev restart
-   ```
-
-3. **NFS Mount** (better file sync):
-   ```yaml
-   # .ddev/config.yaml
-   nfs_mount_enabled: true
-   ```
-
-### Development Workflow
-
-```bash
-# Daily development routine
 ddev start                    # Start your day
-ddev composer install        # Update dependencies if needed
-ddev npm run watch           # Start asset watching
-ddev artisan queue:work      # Start queue worker (separate terminal)
-
-# End of day
-ddev stop                    # Stop the project (saves resources)
+ddev npm run watch           # Watch assets (separate terminal)
+ddev artisan queue:work      # Queue worker (if needed)
+# ... develop ...
+ddev stop                    # End of day
 ```
 
-## 🚀 Quick Start Checklist
+### Performance Optimization
 
-- [ ] Install Docker Desktop
-- [ ] Install DDEV
-- [ ] Clone repository: `git clone <url>`
-- [ ] Initialize DDEV: `ddev config`
-- [ ] Start services: `ddev start`
-- [ ] Install dependencies: `ddev composer install && ddev npm install`
-- [ ] Setup environment: `ddev artisan key:generate`
-- [ ] Run migrations: `ddev artisan migrate:fresh --seed`
-- [ ] Build assets: `ddev npm run dev`
-- [ ] Visit application: https://laraveldto.ddev.site
+#### For Docker Desktop Users
+- Increase Docker resources (4GB+ RAM, 2+ CPU cores)
+- Docker Desktop → Settings → Resources
+- Enable Mutagen on macOS: `ddev config --mutagen-enabled`
+- Use NFS mounts for better file sync performance
+
+#### For OrbStack Users (macOS)
+- OrbStack automatically optimizes resources
+- No manual resource allocation needed
+- File sync is already optimized
+- Consider enabling Rosetta 2 if using Apple Silicon:
+  ```bash
+  # Check if Rosetta 2 is needed
+  ddev debug capabilities
+  
+  # OrbStack automatically handles architecture translation
+  ```
+
+#### Additional Tips
+- Use `ddev config --mutagen-enabled` for even better file sync on macOS
+- Enable NFS mounts in `.ddev/config.yaml`:
+  ```yaml
+  nfs_mount_enabled: true
+  ```
+
+### Quality Assurance
+```bash
+# Run before committing
+ddev quality                 # Custom quality command
+# or manually:
+ddev artisan test
+ddev exec ./vendor/bin/phpstan analyse
+ddev npm run lint
+ddev npm run format:check
+```
+
+## 📊 Environment Details
+
+### Database Connection (from host)
+```
+Host: 127.0.0.1
+Port: 3306
+Database: db
+Username: db
+Password: db
+```
+
+### Services
+- **Web Server**: Nginx with PHP 8.2
+- **Database**: MySQL 8.0
+- **Node.js**: Version 20
+- **Mail**: MailHog for email testing
+- **Container Runtime**: Docker Desktop or OrbStack
+
+### Container Performance
+- **With Docker Desktop**: Standard Docker performance
+- **With OrbStack**: Enhanced performance on macOS with faster startup and lower resource usage
 
 ## 📚 Additional Resources
 
-### DDEV Documentation
-- [Official DDEV Documentation](https://ddev.readthedocs.io/)
-- [Laravel with DDEV](https://ddev.readthedocs.io/en/stable/users/quickstart/#laravel)
-- [DDEV Commands](https://ddev.readthedocs.io/en/stable/users/usage/commands/)
-
-### Laravel Documentation
-- [Laravel Installation](https://laravel.com/docs/installation)
-- [Laravel Artisan Console](https://laravel.com/docs/artisan)
-- [Laravel Database](https://laravel.com/docs/database)
-
-### Project-Specific Resources
-- [Main README](../README.md) - Project overview and architecture
-- [Testing Guide](./TESTING.md) - Testing strategies and examples
-- [Code Quality Guide](./CODE_QUALITY.md) - Linting and quality standards
-- [API Documentation](./API.md) - API endpoints and usage 
+- [DDEV Documentation](https://ddev.readthedocs.io/)
+- [Laravel Documentation](https://laravel.com/docs)
+- [Project README](../README.md) - Architecture overview
+- [Testing Guide](./TESTING.md) - Testing strategies
+- [Code Quality](./CODE_QUALITY.md) - Linting standards 

@@ -45,6 +45,15 @@ Code quality standards and tools:
 - **IDE Integration**: VS Code and PhpStorm setup guides
 - **Best Practices**: Type safety, null checks, and consistency standards
 
+### 🐳 [Local Development Guide](./LOCAL_DEVELOPMENT.md)
+Complete DDEV setup and development workflow:
+- **DDEV Installation**: Step-by-step installation for all platforms
+- **Quick Start**: Get the application running in minutes
+- **Development Shortcuts**: Essential DDEV, Artisan, and NPM commands
+- **Custom Commands**: Productivity shortcuts and automation
+- **Troubleshooting**: Common issues and solutions
+- **Performance Tips**: Optimization and workflow best practices
+
 ### 🚢 [Deployment Guide](./DEPLOYMENT.md)
 Production-ready deployment instructions:
 - Environment setup (dev, staging, production)
