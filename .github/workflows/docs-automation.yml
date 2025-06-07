@@ -895,7 +895,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     
     permissions:
-      contents: read
+      contents: write
       pages: write
       id-token: write
     
@@ -1046,8 +1046,10 @@ jobs:
           - [📋 Recent Changes](generated/recent-changes.md)
           EOF
 
-      - name: 🚀 Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: 📤 Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs-site 
+          path: ./docs-site
+
+      - name: 🚀 Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4 
