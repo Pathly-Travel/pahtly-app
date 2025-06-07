@@ -1,6 +1,6 @@
 # Documentation Summary (Auto-generated)
 
-**Generated:** 2025-06-07 12:39:54 UTC
+**Generated:** 2025-06-07 13:50:45 UTC
 
 ## 📚 Complete Documentation Coverage
 
@@ -12,9 +12,6 @@ This project includes comprehensive documentation covering:
 - **Design Patterns**: DTOs, Actions, Repository patterns
 
 ### 🧪 Testing & Quality
-- **Test Types**: Unit, Integration, Feature tests
-- **Coverage**: 85%+ target coverage
-- **Quality Tools**: PHPStan Level 8, ESLint, Prettier
 
 ### 🚀 Deployment & Operations
 - **Environments**: Development, Staging, Production
@@ -37,15 +34,16 @@ This project includes comprehensive documentation covering:
 - **Examples**: Complete request/response examples
 
 ## 📊 Live Codebase Metrics
-- **DTOs**: `5 files`
-- **Actions**: `5 files`
-- **Models**: `1 files`
-- **Controllers**: `10 files`
-- **Vue Components**: `135 files`
-- **Tests**: `13 files`
+- **DTOs**: `       8 files`
+- **Actions**: `       8 files`
+- **Models**: `       1 files`
+- **Controllers**: `      10 files`
+- **Vue Components**: `     135 files`
+- **Tests**: `      22 files`
 
 ## 🎯 Documentation Quality
 ✅ **Complete Coverage**: Every aspect of the application is documented
 ✅ **Auto-Updated**: Documentation stays in sync with code changes
 ✅ **Developer-Friendly**: Clear examples and practical guides
 ✅ **Searchable**: Full-text search across all documentation
+

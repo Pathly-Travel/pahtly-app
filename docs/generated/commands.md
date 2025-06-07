@@ -1,6 +1,6 @@
 # Command Reference (Auto-generated)
 
-**Last Updated:** 2025-06-07 12:39:50 UTC
+**Last Updated:** 2025-06-07 13:50:31 UTC
 
 ## Laravel Artisan Commands
 ```bash
@@ -35,3 +35,4 @@ cache:forget               Remove an item from the cache
   format:check
   lint
 ```
+
