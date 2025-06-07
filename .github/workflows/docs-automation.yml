@@ -913,7 +913,7 @@ jobs:
       - name: 📚 Setup documentation generator
         run: |
           # Install documentation tools
-          npm install -g @docsify/cli
+          npm install -g docsify-cli
           
           # Create docs site structure
           mkdir -p docs-site
