@@ -2,16 +2,15 @@
 
 namespace App\Portal\Auth\Controllers;
 
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Src\Domain\Auth\Actions\ResetPasswordAction;
+use Src\Domain\Auth\Data\NewPasswordData;
 use Src\Support\Controllers\Controller;
 
 class NewPasswordController extends Controller
@@ -34,31 +33,21 @@ class NewPasswordController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validate the request first to ensure proper error handling
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // Here we will attempt to reset the user's password. If it is successful we
-        // will update the password on an actual user model and persist it to the
-        // database. Otherwise we will parse the error and return the response.
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user) use ($request) {
-                $user->forceFill([
-                    'password' => Hash::make($request->password),
-                    'remember_token' => Str::random(60),
-                ])->save();
+        $newPasswordData = NewPasswordData::from($request->all());
 
-                event(new PasswordReset($user));
-            }
-        );
+        $status = app(ResetPasswordAction::class)($newPasswordData);
 
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        if ($status == Password::PasswordReset) {
+        if ($status == Password::PASSWORD_RESET) {
             return to_route('login')->with('status', __($status));
         }
 

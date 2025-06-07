@@ -4,10 +4,10 @@ namespace App\Portal\Auth\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Src\Domain\Auth\Actions\ConfirmPasswordAction;
+use Src\Domain\Auth\Data\ConfirmPasswordData;
 use Src\Support\Controllers\Controller;
 
 class ConfirmablePasswordController extends Controller
@@ -31,14 +31,14 @@ class ConfirmablePasswordController extends Controller
             return redirect()->route('login');
         }
 
-        if (! Auth::guard('web')->validate([
-            'email' => $user->email,
-            'password' => $request->password,
-        ])) {
-            throw ValidationException::withMessages([
-                'password' => __('auth.password'),
-            ]);
-        }
+        // Validate the request first to ensure proper error handling
+        $request->validate([
+            'password' => 'required',
+        ]);
+
+        $confirmPasswordData = ConfirmPasswordData::from($request->all());
+
+        app(ConfirmPasswordAction::class)($user, $confirmPasswordData);
 
         $request->session()->put('auth.password_confirmed_at', time());
 

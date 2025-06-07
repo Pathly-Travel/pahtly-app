@@ -15,6 +15,10 @@ pest()->extend(Tests\TestCase::class)
  // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->in('Feature');
 
+// Unit tests also need Laravel application context for DTOs and Actions
+pest()->extend(Tests\TestCase::class)
+    ->in('Unit');
+
 /*
 |--------------------------------------------------------------------------
 | Expectations

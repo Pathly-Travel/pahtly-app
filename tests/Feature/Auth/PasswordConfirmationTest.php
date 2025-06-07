@@ -32,3 +32,29 @@ test('password is not confirmed with invalid password', function () {
 
     $response->assertSessionHasErrors();
 });
+
+test('password confirmation requires password field', function () {
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)->post('/confirm-password', []);
+
+    $response->assertSessionHasErrors('password');
+});
+
+test('password confirmation redirects to login when not authenticated', function () {
+    $response = $this->post('/confirm-password', [
+        'password' => 'password',
+    ]);
+
+    $response->assertRedirect(route('login'));
+});
+
+test('password confirmation sets session timestamp on success', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)->post('/confirm-password', [
+        'password' => 'password',
+    ]);
+
+    $this->assertNotNull(session('auth.password_confirmed_at'));
+});

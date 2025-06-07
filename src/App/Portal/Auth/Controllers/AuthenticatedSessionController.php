@@ -29,6 +29,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validate the request first to ensure proper error handling
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
         $loginData = LoginData::from($request->all());
 
         app(LoginAction::class)($loginData);

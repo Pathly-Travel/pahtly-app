@@ -41,3 +41,41 @@ test('users can logout', function () {
     $this->assertGuest();
     $response->assertRedirect('/');
 });
+
+test('login requires email', function () {
+    $response = $this->post('/login', [
+        'password' => 'password',
+    ]);
+
+    $response->assertSessionHasErrors('email');
+});
+
+test('login requires password', function () {
+    $response = $this->post('/login', [
+        'email' => 'test@example.com',
+    ]);
+
+    $response->assertSessionHasErrors('password');
+});
+
+test('login requires valid email format', function () {
+    $response = $this->post('/login', [
+        'email' => 'invalid-email',
+        'password' => 'password',
+    ]);
+
+    $response->assertSessionHasErrors('email');
+});
+
+test('users can authenticate with remember me option', function () {
+    $user = User::factory()->create();
+
+    $response = $this->post('/login', [
+        'email' => $user->email,
+        'password' => 'password',
+        'remember' => true,
+    ]);
+
+    $this->assertAuthenticated();
+    $response->assertRedirect(route('dashboard', absolute: false));
+});

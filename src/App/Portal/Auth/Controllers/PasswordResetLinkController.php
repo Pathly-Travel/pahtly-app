@@ -4,9 +4,10 @@ namespace App\Portal\Auth\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
 use Inertia\Inertia;
 use Inertia\Response;
+use Src\Domain\Auth\Actions\SendPasswordResetLinkAction;
+use Src\Domain\Auth\Data\PasswordResetLinkData;
 use Src\Support\Controllers\Controller;
 
 class PasswordResetLinkController extends Controller
@@ -28,13 +29,14 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validate the request first to ensure proper error handling
         $request->validate([
             'email' => 'required|email',
         ]);
 
-        Password::sendResetLink(
-            $request->only('email')
-        );
+        $passwordResetLinkData = PasswordResetLinkData::from($request->all());
+
+        app(SendPasswordResetLinkAction::class)($passwordResetLinkData);
 
         return back()->with('status', __('A reset link will be sent if the account exists.'));
     }
