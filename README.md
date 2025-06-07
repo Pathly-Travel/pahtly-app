@@ -1,835 +1,118 @@
-# Laravel DTO - Domain Driven Design
-
-> A comprehensive demonstration of Domain Driven Design (DDD) architecture using Spatie Laravel Data for type-safe DTOs in Laravel.
-
-## 🏗️ Architecture Overview
-
-This application showcases a clean DDD architecture with three distinct layers:
-
-```mermaid
-graph TB
-    subgraph "App Layer (HTTP)"
-        A[Controllers] --> B[Middleware]
-        A --> C[Providers]
-    end
-    
-    subgraph "Domain Layer (Business Logic)"
-        D[Actions] --> E[Data/DTOs]
-        D --> F[Models]
-        E --> G[Validation Rules]
-    end
-    
-    subgraph "Support Layer (Infrastructure)"
-        H[Helpers] --> I[Traits]
-        H --> J[Base Classes]
-    end
-    
-    A --> D
-    D --> F
-```
-
-## 📁 Project Structure
-
-```
-src/
-├── App/                          # Application Layer (HTTP/Infrastructure)
-│   ├── Foundation/
-│   │   └── Application.php       # Custom Laravel Application
-│   ├── Portal/                   # HTTP Controllers grouped by domain
-│   │   ├── Auth/
-│   │   │   └── Controllers/
-│   │   └── Settings/
-│   │       └── Controllers/
-│   │           └── ProfileController.php
-│   ├── Middleware/               # HTTP Middleware
-│   └── Providers/
-│       ├── AppServiceProvider.php
-│       └── DomainServiceProvider.php
-├── Domain/                       # Domain Layer (Business Logic)
-│   ├── Auth/                     # Authentication Domain
-│   │   ├── Actions/
-│   │   │   ├── LoginAction.php
-│   │   │   └── RegisterAction.php
-│   │   └── Data/
-│   │       ├── LoginData.php
-│   │       └── RegisterData.php
-│   ├── Settings/                 # Settings Domain
-│   │   ├── Actions/
-│   │   │   └── UpdatePasswordAction.php
-│   │   └── Data/
-│   │       ├── PasswordUpdateData.php
-│   │       └── ProfileUpdateData.php
-│   └── User/                     # User Domain
-│       ├── Actions/
-│       │   ├── DeleteUserAction.php
-│       │   └── UpdateUserProfileAction.php
-│       ├── Data/
-│       │   └── UserData.php
-│       └── Models/
-│           └── User.php
-└── Support/                      # Support Layer (Shared Infrastructure)
-    ├── Controllers/
-    │   └── Controller.php        # Base Controller
-    ├── Helpers/
-    │   └── DomainHelper.php
-    └── Traits/
-        └── HasDomainData.php
-```
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- PHP 8.2+
-- Composer
-- Node.js & npm
-- Docker (optional)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone <repository-url>
-cd LaravelDTO
-
-# Install PHP dependencies
-composer install
-
-# Install Node.js dependencies
-npm install
-
-# Copy environment file
-cp .env.example .env
+<div align="center">
 
-# Generate application key
-php artisan key:generate
+# 🚀 Laravel DTO - Domain Driven Design
 
-# Create database (SQLite by default)
-touch database/database.sqlite
+![Laravel DTO Banner](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
 
-# Run migrations
-php artisan migrate
-```
+### A comprehensive demonstration of Domain Driven Design (DDD) architecture using Spatie Laravel Data for type-safe DTOs in Laravel.
 
-### Development
+[![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
+[![Laravel Version](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com/)
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)](https://vuejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Inertia.js](https://img.shields.io/badge/Inertia.js-1.x-9553E9?style=for-the-badge&logo=inertia&logoColor=white)](https://inertiajs.com/)
 
-```bash
-# Start development server with hot reload
-composer dev
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![PHPStan Level](https://img.shields.io/badge/PHPStan-Level%208-brightgreen?style=for-the-badge)](https://phpstan.org/)
+[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/your-username/LaravelDTO/actions)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-A%2B-brightgreen?style=for-the-badge)](https://github.com/your-username/LaravelDTO)
 
-# Or individual services
-php artisan serve           # Backend server
-npm run dev                # Frontend assets
-php artisan queue:listen    # Queue worker
-php artisan pail           # Log viewer
-```
+---
 
-### Testing
+</div>
 
-```bash
-# Run all tests
-composer test
+## 🌟 Features
 
-# Run specific test suite
-php artisan test --testsuite=Feature
-php artisan test --testsuite=Unit
-```
+- 🏗️ **Clean DDD Architecture** - Proper separation of concerns with Domain, Application, and Support layers
+- 🛡️ **Type-Safe DTOs** - Powered by Spatie Laravel Data for bulletproof data handling
+- 🎯 **Domain Actions** - Encapsulated business logic with single responsibility
+- 🔒 **Authentication System** - Complete auth flow with password management
+- 🎨 **Modern Frontend** - Vue.js 3 + TypeScript + Inertia.js + Tailwind CSS
+- 🧪 **Comprehensive Testing** - Unit, Feature, and Integration tests
+- 📊 **Code Quality Tools** - PHPStan Level 8, ESLint, Prettier
+- 🤖 **Auto Documentation** - Comprehensive docs generated via CI/CD
+- 🐳 **Docker Ready** - Complete development environment with DDEV
+- 🚀 **CI/CD Pipeline** - GitHub Actions for testing, linting, and deployment
 
-### Code Quality & Linting
+## 📚 Documentation
 
-```bash
-# Run PHP static analysis
-./vendor/bin/phpstan analyse
+For detailed technical information, please refer to our comprehensive documentation:
 
-# Run JavaScript/TypeScript linting
-npm run lint
+- 📖 **[Architecture Guide](docs/ARCHITECTURE.md)** - Learn about the DDD structure and patterns
+- 🛠️ **[Local Development](docs/LOCAL_DEVELOPMENT.md)** - Get started with development setup
+- 🚀 **[Deployment Guide](docs/DEPLOYMENT.md)** - Production deployment instructions
+- 🔧 **[Pipeline Setup](docs/PIPELINE_SETUP.md)** - CI/CD configuration details
+- 📊 **[Code Quality](docs/CODE_QUALITY.md)** - Quality standards and tools
+- 🌐 **[API Reference](docs/API.md)** - Complete API documentation
 
-# Auto-fix JavaScript/TypeScript issues
-npm run lint --fix
+## 👥 Contributors
 
-# Check code formatting
-npm run format:check
+<div align="center">
 
-# Auto-format code
-npm run format
+Thanks to these amazing people who have contributed to this project:
 
-# Run all quality checks
-composer test && ./vendor/bin/phpstan analyse && npm run lint && npm run format:check
-```
+<a href="https://github.com/your-username/LaravelDTO/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=your-username/LaravelDTO" />
+</a>
 
-## 🎯 Core Concepts
+Made with [contrib.rocks](https://contrib.rocks).
 
-### 1. Data Transfer Objects (DTOs)
+</div>
 
-DTOs provide type safety, validation, and transformation capabilities using Spatie Laravel Data.
+### How to Contribute
 
-**Example: ProfileUpdateData**
+We welcome contributions! Here's how you can help:
 
-```php
-<?php
+1. 🍴 **Fork the repository**
+2. 🌿 **Create your feature branch** (`git checkout -b feature/amazing-feature`)
+3. 💯 **Write tests** for your changes
+4. ✅ **Run quality checks** (`composer test && ./vendor/bin/phpstan analyse && npm run lint`)
+5. 📝 **Commit your changes** (`git commit -m 'Add some amazing feature'`)
+6. 🚀 **Push to the branch** (`git push origin feature/amazing-feature`)
+7. 🎉 **Open a Pull Request**
 
-namespace Src\Domain\Settings\Data;
+## 📊 Project Stats
 
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Attributes\Validation\Required;
-use Spatie\LaravelData\Attributes\Validation\Email;
-use Spatie\LaravelData\Attributes\Validation\Max;
+<div align="center">
 
-class ProfileUpdateData extends Data
-{
-    public function __construct(
-        #[Required, Max(255)]
-        public string $name,
-        
-        #[Required, Email, Max(255)]
-        public string $email,
-        
-        public ?int $userId = null,
-    ) {}
-}
-```
-
-**Key Benefits:**
-- ✅ **Type Safety**: Full IDE support with autocompletion
-- ✅ **Validation**: Declarative validation rules via attributes
-- ✅ **Transformation**: Easy conversion between arrays, requests, and objects
-- ✅ **Immutability**: DTOs are immutable by design
+![GitHub stars](https://img.shields.io/github/stars/your-username/LaravelDTO?style=social)
+![GitHub forks](https://img.shields.io/github/forks/your-username/LaravelDTO?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/your-username/LaravelDTO?style=social)
 
-### 2. Domain Actions
+![GitHub repo size](https://img.shields.io/github/repo-size/your-username/LaravelDTO)
+![GitHub language count](https://img.shields.io/github/languages/count/your-username/LaravelDTO)
+![GitHub top language](https://img.shields.io/github/languages/top/your-username/LaravelDTO)
+![GitHub last commit](https://img.shields.io/github/last-commit/your-username/LaravelDTO)
 
-Actions encapsulate business logic and operate on DTOs and Models.
+</div>
 
-**Example: UpdateUserProfileAction**
+## 🙏 Acknowledgments
 
-```php
-<?php
-
-namespace Src\Domain\User\Actions;
-
-use Src\Domain\Settings\Data\ProfileUpdateData;
-use Src\Domain\User\Models\User;
-
-class UpdateUserProfileAction
-{
-    public function __invoke(User $user, ProfileUpdateData $profileData): User
-    {
-        // Fill user with validated data
-        $user->fill($profileData->toArray());
-
-        // Business rule: reset email verification if email changed
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $user->save();
-
-        return $user;
-    }
-}
-```
-
-**Action Patterns:**
-- Single responsibility (one business operation)
-- Dependency injection ready
-- Testable in isolation
-- Return domain objects
-
-### 3. Controller Integration
-
-Controllers orchestrate DTOs and Actions without containing business logic.
-
-**Example: ProfileController**
-
-```php
-<?php
-
-namespace App\Portal\Settings\Controllers;
-
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Src\Domain\Settings\Data\ProfileUpdateData;
-use Src\Domain\User\Actions\UpdateUserProfileAction;
-
-class ProfileController extends Controller
-{
-    public function update(Request $request): RedirectResponse
-    {
-        // 1. Transform request to DTO (with automatic validation)
-        $profileData = ProfileUpdateData::from($request->all());
-        
-        // 2. Execute business logic via Action
-        app(UpdateUserProfileAction::class)(
-            auth()->user(), 
-            $profileData
-        );
-        
-        // 3. Return response
-        return to_route('profile.edit');
-    }
-}
-```
-
-## 📊 Data Flow Diagram
-
-```mermaid
-sequenceDiagram
-    participant C as Controller
-    participant D as DTO
-    participant A as Action
-    participant M as Model
-    participant DB as Database
-
-    C->>D: ProfileUpdateData::from($request)
-    D->>D: Validate & Transform
-    C->>A: UpdateUserProfileAction($user, $data)
-    A->>M: $user->fill($data->toArray())
-    A->>M: Apply business rules
-    M->>DB: save()
-    A->>C: return $user
-    C->>C: return redirect()
-```
-
-## 🧪 Testing Examples
-
-### Testing DTOs
-
-```php
-<?php
-
-use Src\Domain\Settings\Data\ProfileUpdateData;
-
-it('validates profile update data', function () {
-    $data = ProfileUpdateData::from([
-        'name' => 'John Doe',
-        'email' => 'john@example.com'
-    ]);
-    
-    expect($data->name)->toBe('John Doe');
-    expect($data->email)->toBe('john@example.com');
-});
-
-it('fails validation with invalid email', function () {
-    ProfileUpdateData::from([
-        'name' => 'John Doe',
-        'email' => 'invalid-email'
-    ]);
-})->throws(ValidationException::class);
-```
-
-### Testing Actions
-
-```php
-<?php
-
-use Src\Domain\Settings\Data\ProfileUpdateData;
-use Src\Domain\User\Actions\UpdateUserProfileAction;
-use Src\Domain\User\Models\User;
-
-it('updates user profile', function () {
-    $user = User::factory()->create(['email' => 'old@example.com']);
-    $data = ProfileUpdateData::from([
-        'name' => 'New Name',
-        'email' => 'new@example.com'
-    ]);
-    
-    $action = new UpdateUserProfileAction();
-    $updatedUser = $action($user, $data);
-    
-    expect($updatedUser->name)->toBe('New Name');
-    expect($updatedUser->email)->toBe('new@example.com');
-    expect($updatedUser->email_verified_at)->toBeNull();
-});
-```
-
-### Integration Testing
-
-```php
-<?php
-
-it('updates profile via HTTP', function () {
-    $user = User::factory()->create();
-    
-    $response = $this->actingAs($user)
-        ->patch('/profile', [
-            'name' => 'Updated Name',
-            'email' => 'updated@example.com'
-        ]);
-    
-    $response->assertRedirect('/profile');
-    
-    expect($user->fresh())
-        ->name->toBe('Updated Name')
-        ->email->toBe('updated@example.com');
-});
-```
-
-## 🎨 Advanced Usage
-
-### Custom Validation Rules
-
-```php
-<?php
-
-namespace Src\Domain\User\Data;
-
-class UserData extends Data
-{
-    public function __construct(
-        #[Required, Max(255), Rule('alpha_dash')]
-        public string $username,
-        
-        #[Required, Email, UniqueInTable('users', 'email')]
-        public string $email,
-        
-        #[Required, Min(8), Confirmed]
-        public string $password,
-    ) {}
-    
-    public static function rules(): array
-    {
-        return [
-            'username' => ['required', 'max:255', 'alpha_dash', 'unique:users'],
-            'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:8', 'confirmed'],
-        ];
-    }
-}
-```
-
-### Action Composition
-
-```php
-<?php
-
-class RegisterUserAction
-{
-    public function __construct(
-        private CreateUserAction $createUser,
-        private SendWelcomeEmailAction $sendWelcomeEmail,
-        private LogUserRegistrationAction $logRegistration,
-    ) {}
-    
-    public function __invoke(RegisterData $data): User
-    {
-        $user = $this->createUser->handle($data);
-        $this->sendWelcomeEmail->handle($user);
-        $this->logRegistration->handle($user, $data);
-        
-        return $user;
-    }
-}
-```
-
-### DTO Transformation
-
-```php
-<?php
-
-// From HTTP Request
-$userData = UserData::from($request);
-
-// From Eloquent Model
-$userData = UserData::from($user);
-
-// From array
-$userData = UserData::from([
-    'name' => 'John Doe',
-    'email' => 'john@example.com'
-]);
-
-// To array
-$array = $userData->toArray();
-
-// To JSON
-$json = $userData->toJson();
-
-// Partial updates
-$updatedData = $userData->except('password');
-```
-
-## 🛠️ Development Guidelines
-
-### Domain Organization
-
-1. **Keep domains focused**: Each domain should have a single responsibility
-2. **Minimize cross-domain dependencies**: Domains should be as independent as possible
-3. **Use Events for cross-domain communication**: Instead of direct dependencies
-
-### DTO Best Practices
-
-1. **Make properties readonly when possible**
-2. **Use nullable types judiciously**
-3. **Group related validation rules**
-4. **Include factory methods for common scenarios**
-
-### Action Guidelines
-
-1. **Single responsibility**: One action, one business operation
-2. **Dependency injection**: Use constructor injection for dependencies
-3. **Return domain objects**: Don't return HTTP responses from actions
-4. **Make them testable**: Actions should be easily unit testable
-
-## 🔧 Configuration
-
-### Service Provider Registration
-
-```php
-<?php
-
-// src/App/Providers/DomainServiceProvider.php
-class DomainServiceProvider extends ServiceProvider
-{
-    public function register(): void
-    {
-        // Register domain actions
-        $this->app->bind(UpdateUserProfileAction::class);
-        $this->app->bind(DeleteUserAction::class);
-        
-        // Register domain services
-        $this->app->singleton(UserService::class);
-    }
-}
-```
-
-### Custom Base Classes
-
-```php
-<?php
-
-// src/Support/Controllers/Controller.php
-abstract class Controller extends BaseController
-{
-    use AuthorizesRequests, ValidatesRequests;
-    
-    protected function resolveAction(string $actionClass): object
-    {
-        return app($actionClass);
-    }
-}
-```
-
-## 📈 Performance Considerations
-
-### DTO Caching
-
-```php
-<?php
-
-class CachedUserData extends UserData
-{
-    public static function fromCache(int $userId): static
-    {
-        return Cache::remember(
-            "user_data_{$userId}",
-            3600,
-            fn() => static::from(User::find($userId))
-        );
-    }
-}
-```
-
-### Lazy Loading
-
-```php
-<?php
-
-class UserData extends Data
-{
-    public function __construct(
-        public string $name,
-        public string $email,
-        #[DataCollectionOf(PostData::class)]
-        public ?Lazy $posts = null,
-    ) {}
-}
-```
-
-## 🚀 Deployment
-
-### Docker Development
-
-```bash
-# Start all services
-docker-compose up -d
-
-# Access application
-http://localhost:8000
-```
-
-### Production Build
-
-```bash
-# Build for production
-npm run build
-
-# Optimize Composer autoloader
-composer install --optimize-autoloader --no-dev
-
-# Cache configuration
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-```
-
-## 🔍 Code Quality & Static Analysis
-
-This project maintains high code quality through automated linting, static analysis, and formatting tools.
-
-### PHP Static Analysis (PHPStan)
-
-We use **PHPStan Level 8** for strict static analysis of PHP code:
-
-```bash
-# Run PHPStan analysis
-./vendor/bin/phpstan analyse
-
-# Run with custom memory limit
-./vendor/bin/phpstan analyse --memory-limit=512M
-
-# Analyze specific directories
-./vendor/bin/phpstan analyse src/ tests/
-```
-
-**PHPStan Configuration** (`phpstan.neon`):
-- **Level 8**: Strictest analysis level
-- **Laravel extensions**: Larastan for Laravel-specific analysis
-- **Custom rules**: Domain-specific validation
-- **Baseline support**: For gradual adoption
-
-**Fixed Issues:**
-- ✅ Null safety: Proper null checks for user authentication
-- ✅ Return types: Consistent return type declarations
-- ✅ Type safety: Eliminated mixed and any types where possible
-
-### JavaScript/TypeScript Linting (ESLint)
-
-Modern ESLint configuration for Vue.js + TypeScript:
-
-```bash
-# Run linting
-npm run lint
-
-# Auto-fix issues
-npm run lint --fix
-
-# Check specific files
-npx eslint resources/js/components/AppHeader.vue --fix
-```
-
-**ESLint Features:**
-- **Vue.js 3**: Latest Vue.js linting rules
-- **TypeScript**: Type-aware linting with typescript-eslint
-- **Prettier integration**: Consistent code formatting
-- **Auto-fixing**: Automatic code corrections
-
-**ESLint Configuration** (`eslint.config.js`):
-```javascript
-export default defineConfigWithVueTs(
-    vue.configs['flat/strongly-recommended'],
-    vueTsConfigs.strict,
-    {
-        rules: {
-            'vue/multi-word-component-names': 'off',
-            '@typescript-eslint/no-explicit-any': 'error',
-            '@typescript-eslint/explicit-function-return-type': 'off',
-            // ... more rules
-        },
-    },
-    prettier, // Prettier integration
-);
-```
-
-### Code Formatting (Prettier)
-
-Consistent code formatting across all frontend files:
-
-```bash
-# Check formatting
-npm run format:check
-
-# Auto-format all files
-npm run format
-
-# Format specific directories
-npx prettier --write resources/js/components/
-```
-
-**Prettier Configuration** (`.prettierrc`):
-- **Consistent style**: 4-space indentation, single quotes
-- **Import organization**: Automatic import sorting
-- **Tailwind support**: Tailwind CSS class sorting
-- **Vue.js support**: Template and script formatting
-
-### Quality Gates
-
-All code must pass these quality checks:
-
-#### 1. PHP Quality Checks
-```bash
-# PHPStan static analysis
-./vendor/bin/phpstan analyse --no-progress
-
-# PHP tests
-php artisan test
-
-# Code style (if using PHP CS Fixer)
-./vendor/bin/php-cs-fixer fix --dry-run
-```
-
-#### 2. JavaScript Quality Checks
-```bash
-# ESLint validation
-npm run lint
-
-# Prettier formatting check
-npm run format:check
-
-# TypeScript compilation
-npx vue-tsc --noEmit
-```
-
-#### 3. Combined Quality Check
-```bash
-# Run all quality checks
-composer test && \
-./vendor/bin/phpstan analyse && \
-npm run lint && \
-npm run format:check
-```
-
-### CI/CD Integration
-
-Our GitHub Actions workflow enforces quality:
-
-```yaml
-# .github/workflows/master.yml
-- name: 🔍 Run PHPStan
-  run: vendor/bin/phpstan analyse
-
-- name: 🎨 Check code formatting
-  run: npm run format:check
-
-- name: 🔍 Run ESLint
-  run: npm run lint
-```
-
-### IDE Integration
-
-#### VS Code Setup
-```json
-{
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "php.validate.executablePath": "./vendor/bin/phpstan"
-}
-```
-
-#### PhpStorm Setup
-- Enable PHPStan inspection
-- Configure ESLint integration
-- Set up Prettier as default formatter
-
-### Quality Metrics
-
-**Current Status:**
-- ✅ **PHPStan**: Level 8, 0 errors
-- ✅ **ESLint**: 0 errors, 0 warnings  
-- ✅ **Prettier**: All files formatted
-- ✅ **Test Coverage**: 85%+ coverage target
-
-### Best Practices
-
-#### PHP Code Quality
-1. **Type hints**: Always use type hints for parameters and return types
-2. **Null safety**: Check for null values before method calls
-3. **Immutability**: Prefer readonly properties and immutable objects
-4. **Single responsibility**: Keep classes focused on one responsibility
-
-#### JavaScript/TypeScript Quality
-1. **Type safety**: Avoid `any` types, use specific interfaces
-2. **Function signatures**: Define explicit return types for complex functions
-3. **Component naming**: Use PascalCase for components (or disable rule for pages)
-4. **Import organization**: Keep imports organized and sorted
-
-#### General Guidelines
-1. **Fix issues early**: Don't accumulate technical debt
-2. **Use auto-fixing**: Leverage automated tools for consistency
-3. **Gradual improvement**: Use baselines for legacy code
-4. **Team alignment**: Ensure all team members use same tools
-
-## 🤖 Comprehensive Automated Documentation
-
-This project includes **extensive automated documentation generation** that covers every aspect of your codebase via CI/CD pipelines:
-
-### Complete Auto-Generated Content
-
-**🏗️ Architecture Documentation:**
-- 🧠 **Business Logic**: DTOs, Domain Actions, and Models with namespaces and paths
-- 🔄 **Workflows**: GitHub Actions workflows and DDEV configuration
-- 🎨 **Views & Frontend**: Vue.js components, pages, layouts, and composables
-- 🔐 **Authentication**: Auth controllers, middleware, and route definitions
-
-**📦 Infrastructure Documentation:**
-- 📦 **Dependencies**: Complete Composer and NPM dependency lists with versions
-- 📧 **Mails**: Mail classes, notification classes, and email templates
-- 🧪 **Tests**: Unit tests, feature tests, configuration, and results summaries
-
-**📊 Project Information:**
-- ✅ **Quality Metrics**: Real-time test results, PHPStan analysis, ESLint status
-- ✅ **API Documentation**: Current routes and endpoints  
-- ✅ **Command Reference**: Available artisan and NPM commands
-- ✅ **Project Structure**: Current directory organization
-
-### Manual Generation
-```bash
-# Generate comprehensive docs locally (same as CI)
-./scripts/generate-docs.sh
-
-# View all generated documentation files
-ls docs/generated/
-
-# Generated files include:
-# - business-logic.md    (DTOs, Actions, Models)
-# - workflows.md         (GitHub Actions, DDEV)
-# - views.md            (Vue Components, Pages, Layouts)
-# - auth.md             (Auth Controllers, Middleware)
-# - dependencies.md     (Composer, NPM packages)
-# - mails.md            (Mail classes, templates)
-# - tests.md            (Unit, Feature tests, config)
-# - quality-metrics.md  (Code quality status)
-# - api-routes.md       (API endpoints)
-# - structure.md        (Project structure)
-```
-
-### Hosted Documentation
-- **GitHub Pages**: Automatically deployed comprehensive documentation site
-- **Auto-Updates**: Refreshed on every push to master
-- **Search**: Full-text search across all documentation
-- **Navigation**: Organized by architecture sections (Business Logic, Infrastructure, etc.)
-
-### Documentation Features
-- **Real-time Updates**: Documentation reflects current codebase state
-- **Comprehensive Coverage**: Every file type and architecture layer documented
-- **Automated Analysis**: Includes live code quality metrics and test results
-- **Developer-Friendly**: Organized for easy navigation and understanding
-
-*All documentation is automatically updated when code changes are pushed to master branch, ensuring your docs never go out of sync with your code.*
-
-## 📚 References
-
-- [Spatie Laravel Data Documentation](https://spatie.be/docs/laravel-data)
-- [Domain Driven Design Principles](https://martinfowler.com/bliki/DomainDrivenDesign.html)
-- [Laravel 12 Documentation](https://laravel.com/docs/12.x)
-- [Inertia.js Documentation](https://inertiajs.com/)
-
-## 🤝 Contributing
-
-1. Follow the established domain structure
-2. Write tests for new Actions and DTOs
-3. Update documentation for new features
-4. Follow PSR-12 coding standards
+- 🎖️ **[Spatie](https://spatie.be/)** - For the incredible Laravel Data package
+- 🚀 **[Laravel Team](https://laravel.com/team)** - For the amazing framework
+- 🎨 **[Tailwind CSS](https://tailwindcss.com/)** - For the utility-first CSS framework
+- ⚡ **[Vue.js Team](https://vuejs.org/about/team.html)** - For the progressive JavaScript framework
+- 🔗 **[Inertia.js](https://inertiajs.com/)** - For bridging the gap between server and client
+
+## 🌟 Show Your Support
+
+If this project helped you, please consider:
+
+- ⭐ **Starring this repository**
+- 🐛 **Reporting bugs** via issues
+- 💡 **Suggesting new features**
+- 📢 **Sharing with the community**
+- ☕ **Buying me a coffee** (if you're feeling generous!)
+
+<div align="center">
+
+**[⬆ Back to Top](#-laravel-dto---domain-driven-design)**
+
+---
+
+<sub>Built with ❤️ using Laravel, Vue.js, and Domain Driven Design principles.</sub>
+
+</div>
 
 ## 📄 License
 
