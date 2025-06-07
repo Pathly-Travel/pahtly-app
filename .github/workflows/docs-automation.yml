@@ -894,6 +894,11 @@ jobs:
     needs: update-docs
     if: github.ref == 'refs/heads/master'
     
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
@@ -913,137 +918,136 @@ jobs:
           # Create docs site structure
           mkdir -p docs-site
           
-                     # Copy documentation files
-           cp -r docs/* docs-site/
-           
-           # Create a README for the docs site
-           cat > docs-site/README.md << 'EOF'
-           # Laravel DTO Documentation
-           
-           > A comprehensive demonstration of Domain Driven Design (DDD) architecture using Spatie Laravel Data for type-safe DTOs in Laravel.
-           
-           ## 🚀 Quick Navigation
-           
-           ### 📚 Manual Documentation
-           Complete guides written and maintained by the development team:
-           
-           - **[🏗️ Architecture](ARCHITECTURE.md)** - Domain Driven Design implementation
-           - **[💻 Local Development](LOCAL_DEVELOPMENT.md)** - Setup and development workflow  
-           - **[🧪 Testing](TESTING.md)** - Testing strategies and best practices
-           - **[✨ Code Quality](CODE_QUALITY.md)** - Linting, formatting, and quality tools
-           - **[🌐 API Documentation](API.md)** - REST API endpoints and examples
-           - **[🚀 Deployment](DEPLOYMENT.md)** - Production deployment guide
-           - **[⚙️ Pipeline Setup](PIPELINE_SETUP.md)** - CI/CD configuration
-           
-           ### 🤖 Auto-Generated Documentation
-           Live documentation automatically updated from the codebase:
-           
-           - **[📊 Documentation Index](generated/documentation-index.md)** - Complete overview
-           - **[🧠 Business Logic](generated/business-logic.md)** - DTOs, Actions, Domain Models
-           - **[📦 Dependencies](generated/dependencies.md)** - Composer & NPM packages
-           - **[🎯 API Routes](generated/api-routes.md)** - All registered routes
-           - **[🏗️ Project Structure](generated/structure.md)** - Code organization
-           
-           ## ✨ Features
-           
-           - **Type-Safe DTOs** with Spatie Laravel Data
-           - **Domain Driven Design** architecture
-           - **Comprehensive Testing** with Pest PHP
-           - **Modern Frontend** with Vue.js 3 + TypeScript
-           - **Automated Documentation** that stays in sync
-           - **Quality Assurance** with PHPStan Level 8 + ESLint
-           
-           ## 🔍 Search
-           
-           Use the search box above to find anything across all documentation files.
-           
-           ---
-           
-           **📅 Last Updated:** Automatically updated on every code change  
-           **🔄 Auto-Sync:** Documentation reflects current codebase state
-           EOF
+          # Copy documentation files
+          cp -r docs/* docs-site/
           
-                     # Create index.html for Docsify
-           cat > docs-site/index.html << 'EOF'
-           <!DOCTYPE html>
-           <html lang="en">
-           <head>
-             <meta charset="UTF-8">
-             <title>Laravel DTO Documentation</title>
-             <meta name="description" content="Laravel DTO - Domain Driven Design Documentation">
-             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-             <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-             <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
-           </head>
-           <body>
-             <div id="app">Loading...</div>
-             <script>
-               window.$docsify = {
-                 name: 'Laravel DTO',
-                 repo: 'https://github.com/' + window.location.pathname.split('/')[1] + '/LaravelDTO',
-                 loadSidebar: true,
-                 autoHeader: true,
-                 subMaxLevel: 3,
-                 search: {
-                   placeholder: 'Search documentation...',
-                   noData: 'No results found.',
-                   depth: 3
-                 },
-                 plugins: [
-                   function(hook, vm) {
-                     hook.beforeEach(function (html) {
-                       var url = 'https://github.com/' + window.location.pathname.split('/')[1] + '/LaravelDTO/blob/master/docs/' + vm.route.file
-                       var editHtml = '[:memo: Edit this page](' + url + ')\n\n'
-                       return editHtml + html
-                     })
-                   }
-                 ]
-               }
-             </script>
-             <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-             <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-             <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-             <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
-             <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
-             <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
-           </body>
-           </html>
-           EOF
+          # Create a README for the docs site
+          cat > docs-site/README.md << 'EOF'
+          # Laravel DTO Documentation
           
-                     # Create sidebar
-           cat > docs-site/_sidebar.md << 'EOF'
-           - [🏠 Home](README.md)
-           
-           **📚 Manual Documentation**
-           - [🏗️ Architecture](ARCHITECTURE.md)
-           - [💻 Local Development](LOCAL_DEVELOPMENT.md)
-           - [🧪 Testing](TESTING.md)
-           - [✨ Code Quality](CODE_QUALITY.md)
-           - [🌐 API Documentation](API.md)
-           - [🚀 Deployment](DEPLOYMENT.md)
-           - [⚙️ Pipeline Setup](PIPELINE_SETUP.md)
-           
-           **🤖 Auto-Generated Documentation**
-           - [📊 Documentation Index](generated/documentation-index.md)
-           - [📋 Summary](generated/summary.md)
-           - [🧠 Business Logic](generated/business-logic.md)
-           - [📦 Dependencies](generated/dependencies.md)
-           - [🎯 API Routes](generated/api-routes.md)
-           - [🏗️ Project Structure](generated/structure.md)
-           - [📊 Quality Metrics](generated/quality-metrics.md)
-           - [🔄 Workflows](generated/workflows.md)
-           - [🎨 Views & Frontend](generated/views.md)
-           - [🔐 Authentication](generated/auth.md)
-           - [📧 Mails](generated/mails.md)
-           - [🧪 Tests](generated/tests.md)
-           - [📖 Commands](generated/commands.md)
-           - [📦 NPM Scripts](generated/npm-scripts.md)
-           - [📋 Recent Changes](generated/recent-changes.md)
-           EOF
+          > A comprehensive demonstration of Domain Driven Design (DDD) architecture using Spatie Laravel Data for type-safe DTOs in Laravel.
+          
+          ## 🚀 Quick Navigation
+          
+          ### 📚 Manual Documentation
+          Complete guides written and maintained by the development team:
+          
+          - **[🏗️ Architecture](ARCHITECTURE.md)** - Domain Driven Design implementation
+          - **[💻 Local Development](LOCAL_DEVELOPMENT.md)** - Setup and development workflow  
+          - **[🧪 Testing](TESTING.md)** - Testing strategies and best practices
+          - **[✨ Code Quality](CODE_QUALITY.md)** - Linting, formatting, and quality tools
+          - **[🌐 API Documentation](API.md)** - REST API endpoints and examples
+          - **[🚀 Deployment](DEPLOYMENT.md)** - Production deployment guide
+          - **[⚙️ Pipeline Setup](PIPELINE_SETUP.md)** - CI/CD configuration
+          
+          ### 🤖 Auto-Generated Documentation
+          Live documentation automatically updated from the codebase:
+          
+          - **[📊 Documentation Index](generated/documentation-index.md)** - Complete overview
+          - **[🧠 Business Logic](generated/business-logic.md)** - DTOs, Actions, Domain Models
+          - **[📦 Dependencies](generated/dependencies.md)** - Composer & NPM packages
+          - **[🎯 API Routes](generated/api-routes.md)** - All registered routes
+          - **[🏗️ Project Structure](generated/structure.md)** - Code organization
+          
+          ## ✨ Features
+          
+          - **Type-Safe DTOs** with Spatie Laravel Data
+          - **Domain Driven Design** architecture
+          - **Comprehensive Testing** with Pest PHP
+          - **Modern Frontend** with Vue.js 3 + TypeScript
+          - **Automated Documentation** that stays in sync
+          - **Quality Assurance** with PHPStan Level 8 + ESLint
+          
+          ## 🔍 Search
+          
+          Use the search box above to find anything across all documentation files.
+          
+          ---
+          
+          **📅 Last Updated:** Automatically updated on every code change  
+          **🔄 Auto-Sync:** Documentation reflects current codebase state
+          EOF
+          
+          # Create index.html for Docsify
+          cat > docs-site/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <title>Laravel DTO Documentation</title>
+            <meta name="description" content="Laravel DTO - Domain Driven Design Documentation">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+            <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+          </head>
+          <body>
+            <div id="app">Loading...</div>
+            <script>
+              window.$docsify = {
+                name: 'Laravel DTO',
+                repo: 'https://github.com/' + window.location.pathname.split('/')[1] + '/LaravelDTO',
+                loadSidebar: true,
+                autoHeader: true,
+                subMaxLevel: 3,
+                search: {
+                  placeholder: 'Search documentation...',
+                  noData: 'No results found.',
+                  depth: 3
+                },
+                plugins: [
+                  function(hook, vm) {
+                    hook.beforeEach(function (html) {
+                      var url = 'https://github.com/' + window.location.pathname.split('/')[1] + '/LaravelDTO/blob/master/docs/' + vm.route.file
+                      var editHtml = '[:memo: Edit this page](' + url + ')\n\n'
+                      return editHtml + html
+                    })
+                  }
+                ]
+              }
+            </script>
+            <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+            <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+          </body>
+          </html>
+          EOF
+          
+          # Create sidebar
+          cat > docs-site/_sidebar.md << 'EOF'
+          - [🏠 Home](README.md)
+          
+          **📚 Manual Documentation**
+          - [🏗️ Architecture](ARCHITECTURE.md)
+          - [💻 Local Development](LOCAL_DEVELOPMENT.md)
+          - [🧪 Testing](TESTING.md)
+          - [✨ Code Quality](CODE_QUALITY.md)
+          - [🌐 API Documentation](API.md)
+          - [🚀 Deployment](DEPLOYMENT.md)
+          - [⚙️ Pipeline Setup](PIPELINE_SETUP.md)
+          
+          **🤖 Auto-Generated Documentation**
+          - [📊 Documentation Index](generated/documentation-index.md)
+          - [📋 Summary](generated/summary.md)
+          - [🧠 Business Logic](generated/business-logic.md)
+          - [📦 Dependencies](generated/dependencies.md)
+          - [🎯 API Routes](generated/api-routes.md)
+          - [🏗️ Project Structure](generated/structure.md)
+          - [📊 Quality Metrics](generated/quality-metrics.md)
+          - [🔄 Workflows](generated/workflows.md)
+          - [🎨 Views & Frontend](generated/views.md)
+          - [🔐 Authentication](generated/auth.md)
+          - [📧 Mails](generated/mails.md)
+          - [🧪 Tests](generated/tests.md)
+          - [📖 Commands](generated/commands.md)
+          - [📦 NPM Scripts](generated/npm-scripts.md)
+          - [📋 Recent Changes](generated/recent-changes.md)
+          EOF
 
-             - name: 🚀 Deploy to GitHub Pages
-         uses: peaceiris/actions-gh-pages@v3
-         with:
-           github_token: ${{ secrets.GITHUB_TOKEN }}
-           publish_dir: ./docs-site
-           # cname: your-custom-domain.com # Uncomment and set your custom domain if needed 
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs-site 
