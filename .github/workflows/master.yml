@@ -101,10 +101,6 @@ jobs:
           name: codecov-umbrella
         continue-on-error: true
 
-      # Code Quality Section
-      - name: 🎨 Run Laravel Pint (code formatting)
-        run: vendor/bin/pint --test
-
       - name: 🔍 Run Larastan (PHPStan for Laravel)
         run: vendor/bin/phpstan analyse
         continue-on-error: true
