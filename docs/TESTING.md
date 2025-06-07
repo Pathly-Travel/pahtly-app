@@ -374,4 +374,300 @@ describe('Authentication API', function () {
 1. **Use in-memory databases for unit tests**: SQLite in-memory for speed
 2. **Parallel test execution**: Use Pest's parallel testing features
 3. **Profile slow tests**: Identify and optimize slow test cases
-4. **Cache test dependencies**: Cache Composer and NPM dependencies in CI 
+4. **Cache test dependencies**: Cache Composer and NPM dependencies in CI
+
+## Code Quality Testing
+
+### Static Analysis Integration
+
+Code quality is enforced through automated tools that run alongside tests:
+
+#### PHP Static Analysis (PHPStan)
+
+```bash
+# Run PHPStan as part of test suite
+./vendor/bin/phpstan analyse --no-progress
+
+# Test specific directories
+./vendor/bin/phpstan analyse src/ tests/
+
+# Generate baseline for existing code
+./vendor/bin/phpstan analyse --generate-baseline
+```
+
+**PHPStan Test Configuration** (`phpstan.neon`):
+```neon
+parameters:
+    level: 8
+    paths:
+        - src/
+        - tests/
+    
+    ignoreErrors:
+        - '#Call to an undefined method.*#'
+    
+    excludePaths:
+        - vendor/
+        - node_modules/
+```
+
+#### JavaScript/TypeScript Linting (ESLint)
+
+```bash
+# Lint all frontend code
+npm run lint
+
+# Lint specific test files
+npx eslint resources/js/**/*.test.ts
+
+# Auto-fix linting issues
+npm run lint --fix
+```
+
+**Testing ESLint Configuration**:
+```javascript
+// eslint.config.js
+export default defineConfigWithVueTs({
+    overrides: [
+        {
+            files: ['**/*.test.ts', '**/*.spec.ts'],
+            rules: {
+                '@typescript-eslint/no-explicit-any': 'off', // Allow any in tests
+                'vue/multi-word-component-names': 'off',
+            },
+        },
+    ],
+});
+```
+
+#### Code Formatting (Prettier)
+
+```bash
+# Check formatting in CI
+npm run format:check
+
+# Auto-format test files
+npx prettier --write resources/js/**/*.test.ts
+```
+
+### Quality Gates in Testing
+
+#### Pre-commit Hooks
+```bash
+# .git/hooks/pre-commit
+#!/bin/sh
+set -e
+
+echo "🧪 Running tests..."
+./vendor/bin/pest
+
+echo "🔍 Running PHPStan..."
+./vendor/bin/phpstan analyse --no-progress
+
+echo "🎨 Checking code formatting..."
+npm run format:check
+
+echo "🔍 Running ESLint..."
+npm run lint
+
+echo "✅ All quality checks passed!"
+```
+
+#### CI/CD Integration
+```yaml
+# .github/workflows/test.yml
+name: Tests & Code Quality
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 🧪 Run Tests
+        run: ./vendor/bin/pest --coverage
+        
+      - name: 🔍 Run PHPStan
+        run: ./vendor/bin/phpstan analyse --no-progress
+        
+      - name: 🎨 Check Formatting
+        run: npm run format:check
+        
+      - name: 🔍 Run ESLint
+        run: npm run lint
+```
+
+### Testing Code Quality Rules
+
+#### Test Naming Conventions
+```php
+<?php
+
+// ✅ Good: Descriptive test names
+it('validates profile update data with invalid email format')
+it('throws exception when user profile update fails')
+it('preserves email verification when email unchanged')
+
+// ❌ Bad: Vague test names
+it('tests validation')
+it('checks update')
+it('user test')
+```
+
+#### Test Structure Standards
+```php
+<?php
+
+describe('UpdateUserProfileAction', function () {
+    beforeEach(function () {
+        // Arrange: Set up test data
+        $this->user = User::factory()->create();
+        $this->action = new UpdateUserProfileAction();
+    });
+    
+    it('updates user profile successfully', function () {
+        // Arrange
+        $data = ProfileUpdateData::from([
+            'name' => 'New Name',
+            'email' => 'new@example.com',
+        ]);
+        
+        // Act
+        $result = $this->action->__invoke($this->user, $data);
+        
+        // Assert
+        expect($result)
+            ->name->toBe('New Name')
+            ->email->toBe('new@example.com');
+    });
+});
+```
+
+#### Type Safety in Tests
+```php
+<?php
+
+// ✅ Good: Type-safe test data
+it('validates DTO with proper types', function () {
+    $data = ProfileUpdateData::from([
+        'name' => 'John Doe',        // string
+        'email' => 'john@test.com',  // string
+        'userId' => 123,             // int
+    ]);
+    
+    expect($data)->toBeInstanceOf(ProfileUpdateData::class);
+});
+
+// ❌ Bad: Untyped test data
+it('checks data', function () {
+    $data = ['name' => 'John', 'email' => 'john@test.com'];
+    // No type checking
+});
+```
+
+### Quality Metrics in Testing
+
+#### Code Coverage Requirements
+```php
+// pest.php
+function pest(): \Pest\TestSuite
+{
+    return \Pest\TestSuite::getInstance()
+        ->coverage(
+            include: ['src/**/*.php'],
+            exclude: ['vendor/**/*'],
+            minCoverage: 85.0
+        );
+}
+```
+
+#### Performance Thresholds
+```php
+<?php
+
+it('completes user profile update within acceptable time', function () {
+    $startTime = microtime(true);
+    
+    $data = ProfileUpdateData::from([
+        'name' => 'John Doe',
+        'email' => 'john@example.com',
+    ]);
+    
+    $action = new UpdateUserProfileAction();
+    $action($this->user, $data);
+    
+    $executionTime = microtime(true) - $startTime;
+    
+    expect($executionTime)->toBeLessThan(0.1); // 100ms threshold
+});
+```
+
+### Testing Best Practices for Code Quality
+
+#### 1. Test-Driven Development (TDD)
+```php
+<?php
+
+// 1. Red: Write failing test first
+it('calculates user age from birthdate', function () {
+    $user = User::factory()->create(['birthdate' => '1990-01-01']);
+    
+    expect($user->age)->toBe(34); // This will fail initially
+});
+
+// 2. Green: Implement minimal code to pass
+// 3. Refactor: Improve the implementation
+```
+
+#### 2. Testing Edge Cases
+```php
+<?php
+
+describe('ProfileUpdateData validation', function () {
+    it('handles empty strings', function () {
+        expect(fn() => ProfileUpdateData::from(['name' => '', 'email' => 'test@example.com']))
+            ->toThrow(ValidationException::class);
+    });
+    
+    it('handles null values', function () {
+        expect(fn() => ProfileUpdateData::from(['name' => null, 'email' => 'test@example.com']))
+            ->toThrow(ValidationException::class);
+    });
+    
+    it('handles extremely long names', function () {
+        $longName = str_repeat('a', 256);
+        
+        expect(fn() => ProfileUpdateData::from(['name' => $longName, 'email' => 'test@example.com']))
+            ->toThrow(ValidationException::class);
+    });
+});
+```
+
+#### 3. Integration with Quality Tools
+```bash
+# Run comprehensive quality check
+#!/bin/bash
+set -e
+
+echo "🧪 Running unit tests..."
+./vendor/bin/pest --testsuite=Unit
+
+echo "🌐 Running feature tests..."
+./vendor/bin/pest --testsuite=Feature
+
+echo "🔍 Running static analysis..."
+./vendor/bin/phpstan analyse --no-progress
+
+echo "🎨 Checking code formatting..."
+npm run format:check
+
+echo "🔍 Running frontend linting..."
+npm run lint
+
+echo "📊 Generating coverage report..."
+./vendor/bin/pest --coverage-html coverage/
+
+echo "✅ All quality checks passed!"
+``` 

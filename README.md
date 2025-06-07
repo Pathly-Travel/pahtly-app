@@ -135,6 +135,28 @@ php artisan test --testsuite=Feature
 php artisan test --testsuite=Unit
 ```
 
+### Code Quality & Linting
+
+```bash
+# Run PHP static analysis
+./vendor/bin/phpstan analyse
+
+# Run JavaScript/TypeScript linting
+npm run lint
+
+# Auto-fix JavaScript/TypeScript issues
+npm run lint --fix
+
+# Check code formatting
+npm run format:check
+
+# Auto-format code
+npm run format
+
+# Run all quality checks
+composer test && ./vendor/bin/phpstan analyse && npm run lint && npm run format:check
+```
+
 ## 🎯 Core Concepts
 
 ### 1. Data Transfer Objects (DTOs)
@@ -548,6 +570,194 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 ```
+
+## 🔍 Code Quality & Static Analysis
+
+This project maintains high code quality through automated linting, static analysis, and formatting tools.
+
+### PHP Static Analysis (PHPStan)
+
+We use **PHPStan Level 8** for strict static analysis of PHP code:
+
+```bash
+# Run PHPStan analysis
+./vendor/bin/phpstan analyse
+
+# Run with custom memory limit
+./vendor/bin/phpstan analyse --memory-limit=512M
+
+# Analyze specific directories
+./vendor/bin/phpstan analyse src/ tests/
+```
+
+**PHPStan Configuration** (`phpstan.neon`):
+- **Level 8**: Strictest analysis level
+- **Laravel extensions**: Larastan for Laravel-specific analysis
+- **Custom rules**: Domain-specific validation
+- **Baseline support**: For gradual adoption
+
+**Fixed Issues:**
+- ✅ Null safety: Proper null checks for user authentication
+- ✅ Return types: Consistent return type declarations
+- ✅ Type safety: Eliminated mixed and any types where possible
+
+### JavaScript/TypeScript Linting (ESLint)
+
+Modern ESLint configuration for Vue.js + TypeScript:
+
+```bash
+# Run linting
+npm run lint
+
+# Auto-fix issues
+npm run lint --fix
+
+# Check specific files
+npx eslint resources/js/components/AppHeader.vue --fix
+```
+
+**ESLint Features:**
+- **Vue.js 3**: Latest Vue.js linting rules
+- **TypeScript**: Type-aware linting with typescript-eslint
+- **Prettier integration**: Consistent code formatting
+- **Auto-fixing**: Automatic code corrections
+
+**ESLint Configuration** (`eslint.config.js`):
+```javascript
+export default defineConfigWithVueTs(
+    vue.configs['flat/strongly-recommended'],
+    vueTsConfigs.strict,
+    {
+        rules: {
+            'vue/multi-word-component-names': 'off',
+            '@typescript-eslint/no-explicit-any': 'error',
+            '@typescript-eslint/explicit-function-return-type': 'off',
+            // ... more rules
+        },
+    },
+    prettier, // Prettier integration
+);
+```
+
+### Code Formatting (Prettier)
+
+Consistent code formatting across all frontend files:
+
+```bash
+# Check formatting
+npm run format:check
+
+# Auto-format all files
+npm run format
+
+# Format specific directories
+npx prettier --write resources/js/components/
+```
+
+**Prettier Configuration** (`.prettierrc`):
+- **Consistent style**: 4-space indentation, single quotes
+- **Import organization**: Automatic import sorting
+- **Tailwind support**: Tailwind CSS class sorting
+- **Vue.js support**: Template and script formatting
+
+### Quality Gates
+
+All code must pass these quality checks:
+
+#### 1. PHP Quality Checks
+```bash
+# PHPStan static analysis
+./vendor/bin/phpstan analyse --no-progress
+
+# PHP tests
+php artisan test
+
+# Code style (if using PHP CS Fixer)
+./vendor/bin/php-cs-fixer fix --dry-run
+```
+
+#### 2. JavaScript Quality Checks
+```bash
+# ESLint validation
+npm run lint
+
+# Prettier formatting check
+npm run format:check
+
+# TypeScript compilation
+npx vue-tsc --noEmit
+```
+
+#### 3. Combined Quality Check
+```bash
+# Run all quality checks
+composer test && \
+./vendor/bin/phpstan analyse && \
+npm run lint && \
+npm run format:check
+```
+
+### CI/CD Integration
+
+Our GitHub Actions workflow enforces quality:
+
+```yaml
+# .github/workflows/master.yml
+- name: 🔍 Run PHPStan
+  run: vendor/bin/phpstan analyse
+
+- name: 🎨 Check code formatting
+  run: npm run format:check
+
+- name: 🔍 Run ESLint
+  run: npm run lint
+```
+
+### IDE Integration
+
+#### VS Code Setup
+```json
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "php.validate.executablePath": "./vendor/bin/phpstan"
+}
+```
+
+#### PhpStorm Setup
+- Enable PHPStan inspection
+- Configure ESLint integration
+- Set up Prettier as default formatter
+
+### Quality Metrics
+
+**Current Status:**
+- ✅ **PHPStan**: Level 8, 0 errors
+- ✅ **ESLint**: 0 errors, 0 warnings  
+- ✅ **Prettier**: All files formatted
+- ✅ **Test Coverage**: 85%+ coverage target
+
+### Best Practices
+
+#### PHP Code Quality
+1. **Type hints**: Always use type hints for parameters and return types
+2. **Null safety**: Check for null values before method calls
+3. **Immutability**: Prefer readonly properties and immutable objects
+4. **Single responsibility**: Keep classes focused on one responsibility
+
+#### JavaScript/TypeScript Quality
+1. **Type safety**: Avoid `any` types, use specific interfaces
+2. **Function signatures**: Define explicit return types for complex functions
+3. **Component naming**: Use PascalCase for components (or disable rule for pages)
+4. **Import organization**: Keep imports organized and sorted
+
+#### General Guidelines
+1. **Fix issues early**: Don't accumulate technical debt
+2. **Use auto-fixing**: Leverage automated tools for consistency
+3. **Gradual improvement**: Use baselines for legacy code
+4. **Team alignment**: Ensure all team members use same tools
 
 ## 📚 References
 

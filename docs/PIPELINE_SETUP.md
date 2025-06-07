@@ -220,21 +220,104 @@ Maak een `phpstan.neon` bestand:
 
 ```neon
 includes:
-    - ./vendor/larastan/larastan/extension.neon
+    - ./vendor/nunomaduro/larastan/extension.neon
 
 parameters:
     paths:
-        - src
+        - src/
+        - tests/
 
-    level: 6
+    # Level 8 is very strict - good for high code quality
+    level: 8
+
+    # Bootstrap for Laravel-specific features
+    bootstrapFiles:
+        - vendor/nunomaduro/larastan/bootstrap.php
 
     ignoreErrors:
+        - '#Unsafe usage of new static#'
         - '#PHPDoc tag @var#'
 
     excludePaths:
-        - src/Support/helpers.php
+        - vendor/
+        - node_modules/
+        - bootstrap/cache/
+        - storage/
 
-    checkMissingIterableValueType: false
+    # Enhanced type checking
+    checkMissingIterableValueType: true
+    checkGenericClassInNonGenericObjectType: true
+    reportUnmatchedIgnoredErrors: true
+    checkTooWideReturnTypesInProtectedAndPublicMethods: true
+```
+
+**Belangrijke verbeteringen in configuratie:**
+- ✅ **Level 8**: Strengste analyse niveau voor maximale type safety
+- ✅ **Tests included**: Analyseer ook test bestanden voor kwaliteit
+- ✅ **Enhanced checking**: Extra type validatie opties ingeschakeld
+- ✅ **Laravel support**: Nieuwste Larastan extensie voor Laravel 11+ support
+
+### 4. JavaScript/TypeScript Linting (ESLint)
+
+Voor frontend code quality, configureer ESLint in `eslint.config.js`:
+
+```javascript
+import prettier from 'eslint-config-prettier';
+import vue from 'eslint-plugin-vue';
+import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
+
+export default defineConfigWithVueTs(
+    vue.configs['flat/strongly-recommended'],
+    vueTsConfigs.strict,
+    {
+        ignores: [
+            'vendor',
+            'node_modules',
+            'public',
+            'bootstrap/ssr',
+            'resources/js/components/ui/*',
+        ],
+    },
+    {
+        rules: {
+            'vue/multi-word-component-names': 'off',
+            '@typescript-eslint/no-explicit-any': 'error',
+            '@typescript-eslint/explicit-function-return-type': 'off',
+            '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+        },
+    },
+    prettier,
+);
+```
+
+### 5. Code Formatting (Prettier)
+
+Automatische code formatting in `.prettierrc`:
+
+```json
+{
+    "printWidth": 120,
+    "tabWidth": 4,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "plugins": [
+        "prettier-plugin-organize-imports",
+        "prettier-plugin-tailwindcss"
+    ]
+}
+```
+
+**NPM Scripts voor code quality:**
+```json
+{
+    "scripts": {
+        "lint": "eslint . --fix",
+        "format": "prettier --write resources/",
+        "format:check": "prettier --check resources/"
+    }
+}
 ```
 
 ## 📊 Monitoring & Notifications
@@ -277,7 +360,7 @@ Je kunt custom notifications toevoegen:
 De deployment gebeurt automatisch bij een push naar `master`:
 
 1. **Tests uitvoeren** - Unit, feature, en integration tests
-2. **Code quality check** - Style checking en static analysis  
+2. **Code quality check** - PHPStan Level 8, ESLint, en Prettier formatting
 3. **Security scan** - Vulnerability checking
 4. **Build assets** - Compile frontend assets
 5. **Deploy to server** - SSH deployment met zero-downtime

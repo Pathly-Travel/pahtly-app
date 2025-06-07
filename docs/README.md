@@ -34,6 +34,16 @@ Comprehensive testing strategies covering:
 - Mocking and stubbing
 - Performance testing
 - CI/CD integration
+- Code quality testing integration
+
+### 🔍 Code Quality & Linting
+Code quality standards and tools:
+- **PHP Static Analysis**: PHPStan Level 8 with Laravel support
+- **JavaScript/TypeScript Linting**: ESLint 9 with Vue.js 3 + TypeScript
+- **Code Formatting**: Prettier with automatic formatting
+- **Quality Gates**: Pre-commit hooks and CI/CD integration
+- **IDE Integration**: VS Code and PhpStorm setup guides
+- **Best Practices**: Type safety, null checks, and consistency standards
 
 ### 🚢 [Deployment Guide](./DEPLOYMENT.md)
 Production-ready deployment instructions:
