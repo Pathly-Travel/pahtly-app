@@ -4,6 +4,17 @@ Welcome to the Laravel DTO application documentation! This comprehensive guide c
 
 ## 📚 Documentation Structure
 
+### 🤖 Auto-Generated Documentation
+Real-time documentation updated automatically by CI/CD:
+- **Quality Metrics**: Current test results, PHPStan analysis, and ESLint status
+- **Command Reference**: Available artisan commands and NPM scripts
+- **API Routes**: Complete list of application routes
+- **Project Structure**: Current directory structure and organization
+- **Recent Changes**: Latest commits and code changes
+- **Configuration Examples**: Live configuration files and examples
+
+*Note: Auto-generated docs are created by GitHub Actions and updated on every push to master.*
+
 ### 🏗️ [Architecture Documentation](./ARCHITECTURE.md)
 Deep dive into the application's architecture, including:
 - Domain Driven Design principles

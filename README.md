@@ -759,6 +759,33 @@ Our GitHub Actions workflow enforces quality:
 3. **Gradual improvement**: Use baselines for legacy code
 4. **Team alignment**: Ensure all team members use same tools
 
+## 🤖 Automated Documentation
+
+This project includes **automated documentation generation** via CI/CD pipelines:
+
+### Auto-Generated Content
+- ✅ **Quality Metrics**: Real-time test results, PHPStan analysis, ESLint status
+- ✅ **API Documentation**: Current routes and endpoints  
+- ✅ **Command Reference**: Available artisan and NPM commands
+- ✅ **Project Structure**: Current directory organization
+- ✅ **Configuration Examples**: Live config files and settings
+
+### Manual Generation
+```bash
+# Generate docs locally (same as CI)
+./scripts/generate-docs.sh
+
+# View generated documentation
+ls docs/generated/
+```
+
+### Hosted Documentation
+- **GitHub Pages**: Automatically deployed documentation site
+- **Auto-Updates**: Refreshed on every push to master
+- **Search**: Full-text search across all documentation
+
+*Documentation is automatically updated when code changes are pushed to master branch.*
+
 ## 📚 References
 
 - [Spatie Laravel Data Documentation](https://spatie.be/docs/laravel-data)
