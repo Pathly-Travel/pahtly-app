@@ -13,6 +13,16 @@ jobs:
     name: 🧪 Run Tests
     runs-on: ubuntu-latest
     
+    env:
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: laravel_dto_test
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      REDIS_HOST: 127.0.0.1
+      REDIS_PORT: 6379
+    
     services:
       mysql:
         image: mysql:8.0
@@ -74,28 +84,12 @@ jobs:
 
       - name: 🗃️ Run database migrations
         run: php artisan migrate --force
-        env:
-          DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_DATABASE: laravel_dto_test
-          DB_USERNAME: root
-          DB_PASSWORD: password
 
       - name: 🌱 Seed database
         run: php artisan db:seed --force
 
       - name: 🧪 Run PHP tests with coverage
         run: php artisan test --coverage --min=80
-        env:
-          DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_DATABASE: laravel_dto_test
-          DB_USERNAME: root
-          DB_PASSWORD: password
-          REDIS_HOST: 127.0.0.1
-          REDIS_PORT: 6379
 
       - name: 🔍 Run PHP CS Fixer (code style check)
         run: vendor/bin/pint --test
