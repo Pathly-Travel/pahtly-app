@@ -1,0 +1,315 @@
+name: CI/CD Pipeline
+
+# Trigger de pipeline bij push naar master en bij pull requests
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  # Job 1: Testen van de applicatie
+  test:
+    name: 🧪 Run Tests
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: laravel_dto_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      
+      redis:
+        image: redis:7.0
+        ports:
+          - 6379:6379
+        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, redis
+          coverage: xdebug
+
+      - name: 📦 Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: 🗄️ Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: 📦 Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📦 Install NPM dependencies
+        run: npm ci
+
+      - name: 🏗️ Build assets
+        run: npm run build
+
+      - name: 📋 Copy environment file
+        run: cp .env.example .env
+
+      - name: 🔑 Generate application key
+        run: php artisan key:generate
+
+      - name: 🗃️ Run database migrations
+        run: php artisan migrate --force
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: laravel_dto_test
+          DB_USERNAME: root
+          DB_PASSWORD: password
+
+      - name: 🌱 Seed database
+        run: php artisan db:seed --force
+
+      - name: 🧪 Run PHP tests with coverage
+        run: php artisan test --coverage --min=80
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: laravel_dto_test
+          DB_USERNAME: root
+          DB_PASSWORD: password
+          REDIS_HOST: 127.0.0.1
+          REDIS_PORT: 6379
+
+      - name: 🔍 Run PHP CS Fixer (code style check)
+        run: vendor/bin/pint --test
+
+      - name: 🔬 Run PHPStan (static analysis)
+        run: vendor/bin/phpstan analyse --memory-limit=2G
+        continue-on-error: true
+
+      - name: 📊 Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+
+  # Job 2: Code quality checks
+  code-quality:
+    name: 🔍 Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+
+      - name: 📦 Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: 🎨 Run Laravel Pint (code formatting)
+        run: vendor/bin/pint --test
+
+      - name: 🔍 Run Larastan (PHPStan for Laravel)
+        run: vendor/bin/phpstan analyse
+        continue-on-error: true
+
+  # Job 3: Security checks
+  security:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: 📦 Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: 🛡️ Run security audit
+        run: composer audit
+
+      - name: 🔍 Check for known vulnerabilities
+        uses: symfonycorp/security-checker-action@v5
+
+  # Job 4: Build en deployment (alleen bij push naar master)
+  deploy:
+    name: 🚀 Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [test, code-quality, security]
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    
+    environment:
+      name: production
+      url: https://jouw-domein.com
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+
+      - name: 📦 Install Composer dependencies (production)
+        run: composer install --optimize-autoloader --no-dev --no-interaction
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📦 Install NPM dependencies
+        run: npm ci --production
+
+      - name: 🏗️ Build production assets
+        run: npm run build
+
+      - name: 📦 Create deployment package
+        run: |
+          tar -czf deployment.tar.gz \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='tests' \
+            --exclude='.github' \
+            --exclude='storage/logs/*' \
+            --exclude='storage/framework/cache/*' \
+            --exclude='storage/framework/sessions/*' \
+            --exclude='storage/framework/views/*' \
+            .
+
+      - name: 📤 Upload deployment package
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-package
+          path: deployment.tar.gz
+
+      - name: 🚀 Deploy to server
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USERNAME }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          port: ${{ secrets.PRODUCTION_SSH_PORT }}
+          script: |
+            # Variabelen
+            APP_DIR="/var/www/laravel-dto"
+            BACKUP_DIR="/var/backups/laravel-dto"
+            TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+            
+            # Maak backup van huidige versie
+            echo "🗄️ Creating backup..."
+            sudo mkdir -p $BACKUP_DIR
+            sudo cp -r $APP_DIR $BACKUP_DIR/backup_$TIMESTAMP
+            
+            # Ga naar applicatie directory
+            cd $APP_DIR
+            
+            # Pull laatste code
+            echo "📥 Pulling latest code..."
+            git pull origin master
+            
+            # Installeer dependencies
+            echo "📦 Installing dependencies..."
+            composer install --optimize-autoloader --no-dev --no-interaction
+            npm ci --production
+            npm run build
+            
+            # Laravel optimalisaties
+            echo "⚡ Optimizing Laravel..."
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan event:cache
+            
+            # Database migraties
+            echo "🗃️ Running migrations..."
+            php artisan migrate --force
+            
+            # Cache legen
+            echo "🧹 Clearing caches..."
+            php artisan cache:clear
+            php artisan queue:restart
+            
+            # Permissies instellen
+            echo "🔐 Setting permissions..."
+            sudo chown -R www-data:www-data $APP_DIR
+            sudo chmod -R 755 $APP_DIR/storage
+            sudo chmod -R 755 $APP_DIR/bootstrap/cache
+            
+            # Services herstarten
+            echo "🔄 Restarting services..."
+            sudo systemctl reload nginx
+            sudo systemctl restart php8.2-fpm
+            sudo supervisorctl restart laravel-queue-worker:*
+            
+            # Health check
+            echo "🏥 Running health check..."
+            curl -f http://localhost/health-check || exit 1
+            
+            echo "✅ Deployment completed successfully!"
+
+      - name: 📢 Notify deployment success
+        if: success()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          text: "🚀 Production deployment successful!"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: 📢 Notify deployment failure
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          text: "❌ Production deployment failed!"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  # Job 5: Notification (altijd uitvoeren)
+  notify:
+    name: 📢 Notifications
+    runs-on: ubuntu-latest
+    needs: [test, code-quality, security]
+    if: always()
+    
+    steps:
+      - name: 📢 Send Slack notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
