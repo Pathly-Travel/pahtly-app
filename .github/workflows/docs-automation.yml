@@ -23,7 +23,6 @@ jobs:
       contents: write
       pull-requests: write
       actions: read
-      metadata: read
     
     steps:
       - name: 📥 Checkout code
