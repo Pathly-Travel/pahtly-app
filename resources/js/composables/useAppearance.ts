@@ -2,7 +2,7 @@ import { onMounted, ref } from 'vue';
 
 type Appearance = 'light' | 'dark' | 'system';
 
-export function updateTheme(value: Appearance) {
+export function updateTheme(value: Appearance): void {
     if (typeof window === 'undefined') {
         return;
     }
@@ -17,7 +17,7 @@ export function updateTheme(value: Appearance) {
     }
 }
 
-const setCookie = (name: string, value: string, days = 365) => {
+const setCookie = (name: string, value: string, days = 365): void => {
     if (typeof document === 'undefined') {
         return;
     }
@@ -27,7 +27,7 @@ const setCookie = (name: string, value: string, days = 365) => {
     document.cookie = `${name}=${value};path=/;max-age=${maxAge};SameSite=Lax`;
 };
 
-const mediaQuery = () => {
+const mediaQuery = (): MediaQueryList | null => {
     if (typeof window === 'undefined') {
         return null;
     }
@@ -35,7 +35,7 @@ const mediaQuery = () => {
     return window.matchMedia('(prefers-color-scheme: dark)');
 };
 
-const getStoredAppearance = () => {
+const getStoredAppearance = (): Appearance | null => {
     if (typeof window === 'undefined') {
         return null;
     }
@@ -43,13 +43,13 @@ const getStoredAppearance = () => {
     return localStorage.getItem('appearance') as Appearance | null;
 };
 
-const handleSystemThemeChange = () => {
+const handleSystemThemeChange = (): void => {
     const currentAppearance = getStoredAppearance();
 
     updateTheme(currentAppearance || 'system');
 };
 
-export function initializeTheme() {
+export function initializeTheme(): void {
     if (typeof window === 'undefined') {
         return;
     }
@@ -73,7 +73,7 @@ export function useAppearance() {
         }
     });
 
-    function updateAppearance(value: Appearance) {
+    function updateAppearance(value: Appearance): void {
         appearance.value = value;
 
         // Store in localStorage for client-side persistence...
