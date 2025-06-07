@@ -47,15 +47,15 @@ For detailed technical information, please refer to our comprehensive documentat
 
 ## 👥 Contributors
 
-<div align="center">
+<div align="left">
 
 Thanks to these amazing people who have contributed to this project:
 
-<a href="https://github.com/your-username/LaravelDTO/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=your-username/LaravelDTO" />
-</a>
+### 🎯 Project Creator & Maintainer
+- **Max Felis** - *Nerd*
 
-Made with [contrib.rocks](https://contrib.rocks).
+### 🤝 How to Become a Contributor
+Want to see your name here? We'd love your help! Check out the contribution guidelines below.
 
 </div>
 
@@ -70,21 +70,6 @@ We welcome contributions! Here's how you can help:
 5. 📝 **Commit your changes** (`git commit -m 'Add some amazing feature'`)
 6. 🚀 **Push to the branch** (`git push origin feature/amazing-feature`)
 7. 🎉 **Open a Pull Request**
-
-## 📊 Project Stats
-
-<div align="center">
-
-![GitHub stars](https://img.shields.io/github/stars/your-username/LaravelDTO?style=social)
-![GitHub forks](https://img.shields.io/github/forks/your-username/LaravelDTO?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/your-username/LaravelDTO?style=social)
-
-![GitHub repo size](https://img.shields.io/github/repo-size/your-username/LaravelDTO)
-![GitHub language count](https://img.shields.io/github/languages/count/your-username/LaravelDTO)
-![GitHub top language](https://img.shields.io/github/languages/top/your-username/LaravelDTO)
-![GitHub last commit](https://img.shields.io/github/last-commit/your-username/LaravelDTO)
-
-</div>
 
 ## 🙏 Acknowledgments
 
@@ -109,8 +94,6 @@ If this project helped you, please consider:
 **[⬆ Back to Top](#-laravel-dto---domain-driven-design)**
 
 ---
-
-<sub>Built with ❤️ using Laravel, Vue.js, and Domain Driven Design principles.</sub>
 
 </div>
 
