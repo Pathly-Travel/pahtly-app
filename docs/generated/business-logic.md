@@ -1,6 +1,6 @@
 # Business Capabilities & Features (Auto-generated)
 
-**Generated:** 2025-06-07 12:33:06 UTC
+**Generated:** 2025-06-07 12:39:52 UTC
 
 *This document outlines the core business capabilities of the application in non-technical terms for product stakeholders.*
 
