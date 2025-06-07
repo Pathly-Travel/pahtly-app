@@ -1,7 +1,7 @@
 <?php
 
-use Src\Domain\User\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Src\Domain\User\Models\User;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 

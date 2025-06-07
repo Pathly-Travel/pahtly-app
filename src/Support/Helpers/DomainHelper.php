@@ -11,14 +11,14 @@ class DomainHelper
     {
         return app($actionClass);
     }
-    
+
     /**
      * Execute a domain action with error handling
      */
     public static function executeAction(string $actionClass, ...$parameters): mixed
     {
         $action = self::resolveAction($actionClass);
-        
+
         return $action(...$parameters);
     }
-} 
+}

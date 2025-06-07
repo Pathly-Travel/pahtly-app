@@ -2,10 +2,10 @@
 
 namespace Src\Domain\Auth\Actions;
 
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
 use Src\Domain\Auth\Data\RegisterData;
 use Src\Domain\User\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
 
 class RegisterAction
 {
@@ -21,4 +21,4 @@ class RegisterAction
 
         return $user;
     }
-} 
+}

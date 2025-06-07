@@ -21,4 +21,4 @@ class DomainServiceProvider extends ServiceProvider
     {
         // Boot domain services here if needed
     }
-} 
+}

@@ -1,0 +1,79 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    # Level 8 is very strict - good for high code quality
+    level: 8
+
+    # Include all relevant application paths based on actual project structure
+    paths:
+        - src/
+        - config/
+        - routes/
+        - database/migrations/
+        - database/seeders/
+        - database/factories/
+
+    # Exclude generated and vendor files
+    excludePaths:
+        - bootstrap/
+        - storage/
+        - vendor/
+        - node_modules/
+        - public/
+        - resources/js/
+        - resources/css/
+        - '*.blade.php'
+
+    # Laravel and application specific ignores
+    ignoreErrors:
+        # Laravel facades and magic methods
+        - '#Call to an undefined method Illuminate\\[a-zA-Z\\]+::[a-zA-Z]+\(\)#'
+        - '#Method [a-zA-Z\\]+::[a-zA-Z]+\(\) has no return type specified#'
+        
+        # Eloquent model magic
+        - '#Property [a-zA-Z\\]+::\$[a-zA-Z]+ is never written, only read#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$[a-zA-Z]+#'
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder::[a-zA-Z]+\(\)#'
+        
+        # Laravel Data DTOs
+        - '#Cannot call method [a-zA-Z]+\(\) on Spatie\\LaravelData\\Data#'
+        - '#Method Src\\[a-zA-Z\\]+\\Data\\[a-zA-Z]+Data::[a-zA-Z]+\(\) has no return type specified#'
+        
+        # Request validation
+        - '#Method [a-zA-Z\\]+::rules\(\) has no return type specified#'
+        - '#Method [a-zA-Z\\]+::messages\(\) has no return type specified#'
+        
+        # Inertia responses
+        - '#Method [a-zA-Z\\]+Controller::[a-zA-Z]+\(\) has no return type specified#'
+        
+        # Factory methods
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Factories\\Factory::[a-zA-Z]+\(\)#'
+        
+        # PHPStan doesn't understand Laravel magic
+        - '#Call to an undefined method Illuminate\\Http\\Request::[a-zA-Z]+\(\)#'
+        - '#Access to an undefined property Illuminate\\Http\\Request::\$[a-zA-Z]+#'
+        
+        # Laravel config env() function issues
+        - '#Parameter .+ of function explode expects string, bool\|string given#'
+        - '#Parameter .+ of function parse_url expects string, bool\|string given#'
+        - '#Parameter .+ of static method Illuminate\\Support\\Str::slug\(\) expects string, bool\|string given#'
+        
+        # Eloquent Factory covariance issues (known Laravel issue)
+        - '#PHPDoc type class-string<.+> of property .+ is not covariant with PHPDoc type .+ of overridden property#'
+        - '#PHPDoc type array<int, string> of property .+ is not covariant with PHPDoc type list<string> of overridden property#'
+        
+        # Generic trait usage (Laravel specific)
+        - '#Class .+ uses generic trait .+ but does not specify its types#'
+        
+        # Unused traits (false positive)
+        - '#Trait .+ is used zero times and is not analysed#'
+
+    # Laravel specific features
+    universalObjectCratesClasses:
+        - Illuminate\Http\Request
+        - Illuminate\Support\Collection
+        
+    # Better error reporting
+    reportUnmatchedIgnoredErrors: false

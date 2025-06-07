@@ -11,9 +11,10 @@ trait HasDomainData
     {
         if (property_exists($this, 'dataClass')) {
             $dataClass = $this->dataClass;
+
             return $dataClass::from($this->toArray());
         }
-        
+
         return $this->toArray();
     }
-} 
+}

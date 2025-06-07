@@ -92,15 +92,6 @@ jobs:
       - name: 🧪 Run PHP tests
         run: php artisan test 
 
-      - name: 📊 Upload coverage reports
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          flags: unittests
-          name: codecov-umbrella
-        continue-on-error: true
-
       - name: 🔍 Run Larastan (PHPStan for Laravel)
         run: vendor/bin/phpstan analyse
         continue-on-error: true

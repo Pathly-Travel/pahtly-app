@@ -2,18 +2,18 @@
 
 namespace Src\Domain\User\Models;
 
-use Src\Domain\User\Data\UserData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\LaravelData\WithData;
+use Src\Domain\User\Data\UserData;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, WithData;
-    
+
     protected string $dataClass = UserData::class;
-    
+
     /**
      * Create a new factory instance for the model.
      */
@@ -55,4 +55,4 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-} 
+}

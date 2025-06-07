@@ -1,9 +1,9 @@
 <?php
 
-use Src\Domain\User\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
+use Src\Domain\User\Models\User;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 

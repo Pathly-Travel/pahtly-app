@@ -1,8 +1,8 @@
 <?php
 
-use Src\Domain\User\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Notification;
+use Src\Domain\User\Models\User;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 

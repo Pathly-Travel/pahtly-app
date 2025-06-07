@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Domain\User;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Src\Domain\Settings\Data\ProfileUpdateData;
 use Src\Domain\User\Actions\UpdateUserProfileAction;
 use Src\Domain\User\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UpdateUserProfileActionTest extends TestCase
@@ -26,7 +26,7 @@ class UpdateUserProfileActionTest extends TestCase
         );
 
         // Act
-        $action = new UpdateUserProfileAction();
+        $action = new UpdateUserProfileAction;
         $updatedUser = $action($user, $profileData);
 
         // Assert
@@ -49,10 +49,10 @@ class UpdateUserProfileActionTest extends TestCase
         );
 
         // Act
-        $action = new UpdateUserProfileAction();
+        $action = new UpdateUserProfileAction;
         $updatedUser = $action($user, $profileData);
 
         // Assert
         $this->assertNull($updatedUser->email_verified_at);
     }
-} 
+}
