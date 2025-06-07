@@ -1,6 +1,6 @@
 # API Routes (Auto-generated)
 
-**Generated:** 2025-06-07 12:29:48 UTC
+**Generated:** 2025-06-07 12:33:05 UTC
 
 ## All Registered Routes
 

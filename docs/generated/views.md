@@ -1,6 +1,6 @@
 # Views & Frontend Documentation (Auto-generated)
 
-**Generated:** 2025-06-07 12:29:50 UTC
+**Generated:** 2025-06-07 12:33:06 UTC
 
 ## Vue.js Components
 
