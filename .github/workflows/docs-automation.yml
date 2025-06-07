@@ -22,6 +22,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      actions: read
+      metadata: read
     
     steps:
       - name: 📥 Checkout code
@@ -29,6 +31,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+          persist-credentials: true
 
       - name: 🐘 Setup PHP
         uses: shivammathur/setup-php@v2
@@ -831,30 +834,46 @@ jobs:
           echo "✅ **Developer-Friendly**: Clear examples and practical guides" >> docs/generated/summary.md
           echo "✅ **Searchable**: Full-text search across all documentation" >> docs/generated/summary.md
 
+      - name: 📂 Verify generated documentation files
+        run: |
+          echo "📂 Checking docs/generated directory..."
+          ls -la docs/generated/ || echo "docs/generated directory not found"
+          
+          echo "📊 File count in docs/generated:"
+          find docs/generated -name "*.md" -type f | wc -l
+          
+          echo "📝 Generated files:"
+          find docs/generated -name "*.md" -type f | head -10
+
       - name: 🔍 Check for documentation changes
         id: verify-changed-files
         run: |
-          if git diff --quiet docs/generated/; then
+          # Force add generated docs in case they're in gitignore
+          git add -f docs/generated/ || true
+          if git diff --cached --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes detected in generated documentation"
           else
             echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in generated documentation"
+            git diff --cached --name-only
           fi
 
-      - name: 📝 Commit documentation updates
+      - name: 📝 Commit and push documentation updates
         if: steps.verify-changed-files.outputs.changed == 'true'
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions Bot"
           
-          git add docs/generated/
-          git commit -m "📚 Auto-update documentation [skip ci]" || exit 0
-
-      - name: 🚀 Push changes
-        if: steps.verify-changed-files.outputs.changed == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: master
+          echo "Current branch: ${{ github.ref_name }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Event: ${{ github.event_name }}"
+          
+          git status
+          git commit -m "📚 Auto-update documentation [skip ci]"
+          
+          echo "Pushing to origin/${{ github.ref_name }}"
+          git push origin HEAD:${{ github.ref_name }}
 
       - name: 💬 Create PR comment with updates
         if: github.event_name == 'pull_request' && steps.verify-changed-files.outputs.changed == 'true'

@@ -23,6 +23,10 @@ yarn-error.log
 /.vscode
 /.zed
 
-# Auto-generated documentation (keep directory structure but ignore generated files)
-docs/generated/*
+# Auto-generated documentation (track markdown files, ignore temporary files)
+docs/generated/*.tmp
+docs/generated/*.log
+docs/generated/*.xml
+docs/generated/*.json
+!docs/generated/*.md
 !docs/generated/.gitkeep
