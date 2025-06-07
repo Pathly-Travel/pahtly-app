@@ -91,12 +91,9 @@ jobs:
       - name: 🧪 Run PHP tests with coverage
         run: php artisan test --coverage --min=80
 
-      - name: 🔍 Run PHP CS Fixer (code style check)
-        run: vendor/bin/pint --test
-
-      - name: 🔬 Run PHPStan (static analysis)
-        run: vendor/bin/phpstan analyse --memory-limit=2G
-        continue-on-error: true
+      # - name: 🔬 Run PHPStan (static analysis)
+      #   run: vendor/bin/phpstan analyse --memory-limit=2G
+      #   continue-on-error: true
 
       - name: 📊 Upload coverage reports
         uses: codecov/codecov-action@v3
@@ -292,18 +289,18 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-  # Job 5: Notification (altijd uitvoeren)
-  notify:
-    name: 📢 Notifications
-    runs-on: ubuntu-latest
-    needs: [test, code-quality, security]
-    if: always()
+  # # Job 5: Notification (altijd uitvoeren)
+  # notify:
+  #   name: 📢 Notifications
+  #   runs-on: ubuntu-latest
+  #   needs: [test, code-quality, security]
+  #   if: always()
     
-    steps:
-      - name: 📢 Send Slack notification
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: repo,message,commit,author,action,eventName,ref,workflow
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
+  #   steps:
+  #     - name: 📢 Send Slack notification
+  #       uses: 8398a7/action-slack@v3
+  #       with:
+  #         status: ${{ job.status }}
+  #         fields: repo,message,commit,author,action,eventName,ref,workflow
+  #       env:
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
