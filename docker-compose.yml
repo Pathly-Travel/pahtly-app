@@ -9,7 +9,7 @@ services:
         volumes:
             - storage_production:/var/www/html/storage
         depends_on:
-            - mysql-laravel-dto-production
+            - mysql-pathy-app-production
         environment:
             - DB_CONNECTION=mysql
             - DB_HOST=mysql_production
@@ -22,8 +22,8 @@ services:
         networks:
             - dokploy-network
 
-    mysql-workflow-buddy-production:
-        container_name: mysql_laravel_dto_production
+    mysql-pathy-app-production:
+        container_name: mysql_pathy_app_production
         image: mysql:latest
         environment:
             MYSQL_ROOT_PASSWORD: rootpass

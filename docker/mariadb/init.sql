@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS laravel_dto;
+CREATE DATABASE IF NOT EXISTS pathy_db;
 
-GRANT ALL PRIVILEGES ON laravel_dto.* TO 'dto'@'%';
+GRANT ALL PRIVILEGES ON pathy_db.* TO 'pathy'@'%';
 
 FLUSH PRIVILEGES;

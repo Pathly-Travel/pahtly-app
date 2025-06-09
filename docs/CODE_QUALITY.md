@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the comprehensive code quality standards and tools used in the Laravel DTO project. We maintain high code quality through automated linting, static analysis, formatting, and quality gates.
+This document outlines the comprehensive code quality standards and tools used in the Pathly App project. We maintain high code quality through automated linting, static analysis, formatting, and quality gates.
 
 ## 🔍 Static Analysis Tools
 
@@ -359,7 +359,7 @@ jobs:
 #!/bin/bash
 # scripts/quality-report.sh
 
-echo "📊 Laravel DTO Quality Report - $(date)"
+echo "📊 Pathly App Quality Report - $(date)"
 echo "========================================="
 
 echo -e "\n🔍 PHPStan Analysis:"

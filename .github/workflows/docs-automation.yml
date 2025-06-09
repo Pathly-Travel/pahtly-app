@@ -908,7 +908,7 @@ jobs:
           
           # Create a README for the docs site
           cat > docs-site/README.md << 'EOF'
-          # Laravel DTO Documentation
+          # Pathly App Documentation
           
           > A comprehensive demonstration of Domain Driven Design (DDD) architecture using Spatie Laravel Data for type-safe DTOs in Laravel.
           
@@ -959,8 +959,8 @@ jobs:
           <html lang="en">
           <head>
             <meta charset="UTF-8">
-            <title>Laravel DTO Documentation</title>
-            <meta name="description" content="Laravel DTO - Domain Driven Design Documentation">
+            <title>Pathly App Documentation</title>
+            <meta name="description" content="Pathly App - Modern Web Application Documentation">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
             <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
@@ -969,7 +969,7 @@ jobs:
             <div id="app">Loading...</div>
             <script>
               window.$docsify = {
-                name: 'Laravel DTO',
+                name: 'Pathly App',
                 repo: 'https://github.com/' + window.location.pathname.split('/')[1] + '/LaravelDTO',
                 loadSidebar: true,
                 autoHeader: true,

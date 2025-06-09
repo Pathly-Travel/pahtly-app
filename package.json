@@ -1,4 +1,5 @@
 {
+    "name": "pathly-app",
     "private": true,
     "type": "module",
     "scripts": {

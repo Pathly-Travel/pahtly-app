@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Laravel DTO application provides a clean REST API built with Domain Driven Design principles. All endpoints use DTOs for type-safe data handling and Actions for business logic.
+This Pathly App provides a clean REST API built with Domain Driven Design principles. All endpoints use DTOs for type-safe data handling and Actions for business logic.
 
 ## Authentication
 
@@ -646,8 +646,8 @@ Use tools like Postman, Insomnia, or curl to test the API endpoints manually. Im
 ```json
 {
     "info": {
-        "name": "Laravel DTO API",
-        "description": "API endpoints for Laravel DTO application"
+            "name": "Pathly App API",
+    "description": "API endpoints for Pathly App"
     },
     "auth": {
         "type": "bearer",

@@ -1,0 +1,131 @@
+#ddev-generated
+# If you remove the ddev-generated line above you
+# are responsible for maintaining this file. DDEV will not then
+# update it, for example if you add `additional_hostnames`, etc.
+
+http:
+  routers:
+    LaravelDTO-web-80-http:
+      entrypoints:
+        - http-80
+      rule: HostRegexp(`^laraveldto\.app\.local$`)
+      
+      service: "LaravelDTO-web-80"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "LaravelDTO-redirectHttps"
+    LaravelDTO-web-8025-http:
+      entrypoints:
+        - http-8025
+      rule: HostRegexp(`^laraveldto\.app\.local$`)
+      
+      service: "LaravelDTO-web-8025"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "LaravelDTO-redirectHttps"
+    LaravelDTO-web-5173-http:
+      entrypoints:
+        - http-5172
+      rule: HostRegexp(`^laraveldto\.app\.local$`)
+      
+      service: "LaravelDTO-web-5173"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "LaravelDTO-redirectHttps"
+    LaravelDTO-xhgui-80-http:
+      entrypoints:
+        - http-8143
+      rule: HostRegexp(`^laraveldto\.app\.local$`)
+      
+      service: "LaravelDTO-xhgui-80"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "LaravelDTO-redirectHttps"
+    
+    
+    
+    
+    LaravelDTO-web-80-https:
+      entrypoints:
+        - http-443
+      rule: HostRegexp(`^laraveldto\.app\.local$`)
+      
+      service: "LaravelDTO-web-80"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    LaravelDTO-web-8025-https:
+      entrypoints:
+        - http-8026
+      rule: HostRegexp(`^laraveldto\.app\.local$`)
+      
+      service: "LaravelDTO-web-8025"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    LaravelDTO-web-5173-https:
+      entrypoints:
+        - http-5173
+      rule: HostRegexp(`^laraveldto\.app\.local$`)
+      
+      service: "LaravelDTO-web-5173"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    
+    LaravelDTO-xhgui-80-https:
+      entrypoints:
+        - http-8142
+      rule: HostRegexp(`^laraveldto\.app\.local$`)
+      
+      service: "LaravelDTO-xhgui-80"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    
+
+  middlewares:
+    LaravelDTO-redirectHttps:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  services:
+    LaravelDTO-web-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-LaravelDTO-web:80
+        
+    LaravelDTO-web-8025:
+      loadbalancer:
+        servers:
+          - url: http://ddev-LaravelDTO-web:8025
+        
+    LaravelDTO-web-5173:
+      loadbalancer:
+        servers:
+          - url: http://ddev-LaravelDTO-web:5173
+        
+    
+    
+    
+    LaravelDTO-xhgui-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-LaravelDTO-xhgui:80
+        
+    
+    
+
+tls:
+  certificates:
+    - certFile: /mnt/ddev-global-cache/traefik/certs/LaravelDTO.crt
+      keyFile: /mnt/ddev-global-cache/traefik/certs/LaravelDTO.key

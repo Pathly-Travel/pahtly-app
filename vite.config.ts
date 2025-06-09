@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
-const hostname = 'laraveldto.app.local';
+const hostname = 'pathly.app.local';
 const port     = 5173;
 
 export default defineConfig({

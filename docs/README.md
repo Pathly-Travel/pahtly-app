@@ -1,6 +1,6 @@
 # Documentation Index
 
-Welcome to the Laravel DTO application documentation! This comprehensive guide covers everything you need to know about building, testing, and deploying applications using Domain Driven Design principles with Spatie Laravel Data.
+Welcome to the Pathly App documentation! This comprehensive guide covers everything you need to know about building, testing, and deploying applications using Domain Driven Design principles with Spatie Laravel Data.
 
 ## 📚 Documentation Structure
 

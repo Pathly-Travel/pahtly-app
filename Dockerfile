@@ -41,7 +41,7 @@ WORKDIR /var/www/html
 RUN a2enmod rewrite
 
 # Set the ServerName directive globally
-RUN echo "ServerName laravel-dto.app" >> /etc/apache2/apache2.conf
+RUN echo "ServerName pathy.app.local" >> /etc/apache2/apache2.conf
 
 RUN apt-get update && apt-get install -y \
  libpq-dev \

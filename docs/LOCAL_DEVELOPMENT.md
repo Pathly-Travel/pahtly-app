@@ -1,6 +1,6 @@
 # Local Development with DDEV
 
-Complete guide for setting up and running the Laravel DTO application locally using DDEV.
+Complete guide for setting up and running the Pathly App locally using DDEV.
 
 ## 🐳 What is DDEV?
 
@@ -112,8 +112,8 @@ ddev npm run watch
 ```
 
 ### 5. Access Application
-- **Main Site**: https://laraveldto.ddev.site
-- **MailHog**: https://laraveldto.ddev.site:8026
+- **Main Site**: https://pathly-app.app.local
+- **MailHog**: https://pathly-app.app.local:8026
 - **Database**: localhost:3306 (from host)
 
 ## ⚡ DDEV Shortcuts

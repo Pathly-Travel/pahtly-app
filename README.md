@@ -1,10 +1,10 @@
 <div align="center">
 
-# 🚀 Laravel DTO - Domain Driven Design
+# 🚀 Pathly App - Modern Web Application
 
-![Laravel DTO Banner](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
+![Pathly App Banner](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
 
-### A comprehensive demonstration of Domain Driven Design (DDD) architecture using Spatie Laravel Data for type-safe DTOs in Laravel.
+### A modern web application built with Laravel, Vue.js, and TypeScript featuring clean architecture and Domain-Driven Design principles.
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![Laravel Version](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com/)
@@ -14,8 +14,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![PHPStan Level](https://img.shields.io/badge/PHPStan-Level%208-brightgreen?style=for-the-badge)](https://phpstan.org/)
-[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/your-username/LaravelDTO/actions)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-A%2B-brightgreen?style=for-the-badge)](https://github.com/your-username/LaravelDTO)
+[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/your-username/pathly-app/actions)
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-A%2B-brightgreen?style=for-the-badge)](https://github.com/your-username/pathly-app)
 
 ---
 
@@ -91,7 +91,7 @@ If this project helped you, please consider:
 
 <div align="center">
 
-**[⬆ Back to Top](#-laravel-dto---domain-driven-design)**
+**[⬆ Back to Top](#-pathly-app---modern-web-application)**
 
 ---
 

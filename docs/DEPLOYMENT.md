@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide covers deployment strategies for the Laravel DTO application across different environments: development, staging, and production.
+This guide covers deployment strategies for the Pathly App across different environments: development, staging, and production.
 
 ## Environment Setup
 
@@ -74,7 +74,7 @@ Staging should mirror production as closely as possible.
 #### Environment Configuration
 
 ```env
-APP_NAME="Laravel DTO - Staging"
+APP_NAME="Pathly App - Staging"
 APP_ENV=staging
 APP_DEBUG=false
 APP_URL=https://staging.yourapp.com
@@ -786,4 +786,4 @@ tail -f /var/log/nginx/error.log
 tail -f /var/log/php8.2-fpm.log
 ```
 
-This deployment guide ensures your Laravel DTO application is deployed securely, efficiently, and reliably across all environments. 
+This deployment guide ensures your Pathly App is deployed securely, efficiently, and reliably across all environments. 

@@ -1,11 +1,13 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/vue-starter-kit",
+    "name": "pathly/pathly-app",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Pathly App - A modern web application built with Laravel and Vue.js.",
     "keywords": [
         "laravel",
-        "framework"
+        "vue",
+        "pathly",
+        "web-app"
     ],
     "license": "MIT",
     "require": {
