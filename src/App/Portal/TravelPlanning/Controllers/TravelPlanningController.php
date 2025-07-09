@@ -20,7 +20,7 @@ class TravelPlanningController extends Controller
             
             return response()->json([
                 'success' => true,
-                'data' => $result->toArray(),
+                'data' => $result,
             ]);
             
         } catch (\Exception $e) {
