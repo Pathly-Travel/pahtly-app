@@ -13,6 +13,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/travel-planning', function () {
+        return Inertia::render('TravelPlanning');
+    })->name('travel-planning');
+    
     Route::post('/travel-planning/generate', [TravelPlanningController::class, 'generatePlan'])
         ->name('travel-planning.generate');
 });
