@@ -14,7 +14,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/travel-planning', function () {
-        return Inertia::render('TravelPlanning');
+        return Inertia::render('TravelPlanner/TravelPlanning');
     })->name('travel-planning');
     
     Route::post('/travel-planning/generate', [TravelPlanningController::class, 'generatePlan'])
