@@ -1,0 +1,27 @@
+- [🏠 Home](README.md)
+
+**📚 Manual Documentation**
+- [🏗️ Architecture](ARCHITECTURE.md)
+- [💻 Local Development](LOCAL_DEVELOPMENT.md)
+- [🧪 Testing](TESTING.md)
+- [✨ Code Quality](CODE_QUALITY.md)
+- [🌐 API Documentation](API.md)
+- [🚀 Deployment](DEPLOYMENT.md)
+- [⚙️ Pipeline Setup](PIPELINE_SETUP.md)
+
+**🤖 Auto-Generated Documentation**
+- [📊 Documentation Index](generated/documentation-index.md)
+- [📋 Summary](generated/summary.md)
+- [🧠 Business Logic](generated/business-logic.md)
+- [📦 Dependencies](generated/dependencies.md)
+- [🎯 API Routes](generated/api-routes.md)
+- [🏗️ Project Structure](generated/structure.md)
+- [📊 Quality Metrics](generated/quality-metrics.md)
+- [🔄 Workflows](generated/workflows.md)
+- [🎨 Views & Frontend](generated/views.md)
+- [🔐 Authentication](generated/auth.md)
+- [📧 Mails](generated/mails.md)
+- [🧪 Tests](generated/tests.md)
+- [📖 Commands](generated/commands.md)
+- [📦 NPM Scripts](generated/npm-scripts.md)
+- [📋 Recent Changes](generated/recent-changes.md)
